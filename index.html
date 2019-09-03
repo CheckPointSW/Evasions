@@ -1,0 +1,240 @@
+---
+layout: main
+---
+
+<style>
+table {
+  table-layout: fixed ;
+}
+table, th, td {
+  border: 0px;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 4px;
+  text-align: center;    
+}
+
+.common-svg {
+  width: 120;
+  height: 120;
+}
+
+.pink-rect {
+  fill: rgb(255,86,136);
+  width: 100%;
+  height: 100%;
+}
+.gray-rect {
+  fill: rgb(159,159,159);
+  width: 100%;
+  height: 100%;
+}
+
+.img-centered {
+  width: 80%;
+  height: 80%;
+  x: 10%;
+  y: 10%;
+}
+
+.gray-text {
+  text-anchor: "middle";
+  color: "darkgray";
+}
+</style>
+
+<section>
+  <div class="jumbotron">
+    <div class="container logo">
+      <img src="/assets/images/CPR_Logo_transparent.png" width="165px" /> {{site.description}}
+    </div>
+
+</div>
+</section>
+
+<br />
+
+<table style="width:56%" align="center">
+<tr>
+<td>
+	<svg width="120" height="120"> 
+  <filter id="duotone">
+	<feColorMatrix type="matrix" values=".33 .33 .33 0 0
+			.33 .33 .33 0 0
+			.33 .33 .33 0 0
+			 0   0   0  1 0">
+	</feColorMatrix>
+  </filter>  
+	  <a href="/techniques/filesystem.html">
+		<rect class="pink-rect" />
+		<image xlink:href="/assets/icons/filesystem.svg" class="img-centered" />
+	  </a>
+	</svg>
+	<br />
+	<a href="/techniques/filesystem.html" text-anchor="middle" style="margin-left:-3%" color="white">Filesystem</a>
+</td>
+<td>
+  <svg width="120" height="120"> 
+	  <a href="/techniques/registry.html">
+		<rect class="pink-rect" />
+		<image xlink:href="/assets/icons/registry.svg" class="img-centered" />
+	  </a>
+	</svg>
+	<br />
+	<a href="/techniques/registry.html" text-anchor="middle" style="margin-left:-3%" color="white">Registry</a>
+</td>
+<td>
+  <svg width="120" height="120">
+	  <a href="/techniques/generic-os-queries.html">
+		<rect class="pink-rect"/>
+		<image xlink:href="/assets/icons/generic-os-queries.svg" class="img-centered" />
+	  </a>
+	</svg>
+	<br />
+	<a href="/techniques/generic-os-queries.html" text-anchor="middle" style="margin-left:-3%" color="white">Generic OS queries</a>
+</td>
+<td>
+  <svg width="120" height="120"> 
+	  <a>
+		<rect class="gray-rect"/>
+		<image xlink:href="/assets/icons/global-os-objects.svg" class="img-centered" filter="url(#duotone)" />
+	  </a>
+	</svg>
+	<br />
+	<font text-anchor="middle" style="margin-left:-3%" color="gray">Global OS objects</font>
+</td>
+</tr>
+
+<tr>
+<td>
+  <svg width="120" height="120">
+	  <a>
+		<rect class="gray-rect"/>
+		<image xlink:href="/assets/icons/ui-artifacts.svg" class="img-centered" filter="url(#duotone)" />
+	  </a>
+	</svg>
+	<br />
+	<font text-anchor="middle" style="margin-left:-3%" color="darkgray">UI artifacts</font>
+</td>
+<td>
+  <svg width="120" height="120"> 
+	  <a>
+		<rect class="gray-rect"/>
+		<image xlink:href="/assets/icons/os-features.svg" class="img-centered" filter="url(#duotone)" />
+	  </a>
+	</svg>
+	<br />
+	<font text-anchor="middle" style="margin-left:-3%" color="darkgray">OS features</font>
+</td>
+<td>
+  <svg width="120" height="120"> 
+	  <a>
+		<rect class="gray-rect"/>
+		<image xlink:href="/assets/icons/processes-and-libraries.svg" class="img-centered" filter="url(#duotone)" />
+	  </a>
+	</svg>
+	<br />
+	<font text-anchor="middle" style="margin-left:-3%" color="darkgray">Processes</font>
+</td>
+<td>
+  <svg width="120" height="120"> 
+	  <a>
+		<rect class="gray-rect"/>
+		<image xlink:href="/assets/icons/network.svg" class="img-centered" filter="url(#duotone)" />
+	  </a>
+	</svg>
+	<br />
+	<font text-anchor="middle" style="margin-left:-3%" color="darkgray">Network</font>
+</td>
+</tr>
+
+<tr>
+<td>
+  <svg width="120" height="120"> 
+	  <a>
+		<rect class="gray-rect"/>
+		<image xlink:href="/assets/icons/cpu.svg" class="img-centered" filter="url(#duotone)" />
+	  </a>
+	</svg>
+	<br />
+	<font text-anchor="middle" style="margin-left:-3%" color="darkgray">CPU</font>
+</td>
+<td>
+  <svg width="120" height="120"> 
+	  <a>
+		<rect class="gray-rect"/>
+		<image xlink:href="/assets/icons/Hardware.svg" class="img-centered" filter="url(#duotone)" />
+	  </a>
+	</svg>
+	<br />
+	<font text-anchor="middle" style="margin-left:-3%" color="darkgray">Hardware</font>
+</td>
+<td>
+  <svg width="120" height="120"> 
+	  <a>
+		<rect class="gray-rect"/>
+		<image xlink:href="/assets/icons/firmware-tables.svg" class="img-centered" filter="url(#duotone)" />
+	  </a>
+	</svg>
+	<br />
+	<font text-anchor="middle" style="margin-left:-3%" color="darkgray">Firmware tables</font>
+</td>
+<td>
+  <svg width="120" height="120"> 
+	  <a>
+		<rect class="gray-rect"/>
+		<image xlink:href="/assets/icons/Hooks.svg" class="img-centered" filter="url(#duotone)" />
+	  </a>
+	</svg>
+	<br />
+	<font text-anchor="middle" style="margin-left:-3%" color="darkgray">Hooks</font>
+</td>
+</tr>
+
+<tr>
+<td>
+  <svg width="120" height="120"> 
+	  <a>
+		<rect class="gray-rect"/>
+		<image xlink:href="/assets/icons/timing.svg" class="img-centered" filter="url(#duotone)" />
+	  </a>
+	</svg>
+	<br />
+	<font text-anchor="middle" style="margin-left:-3%" color="darkgray">Timing</font>
+</td>
+<td>
+  <svg width="120" height="120"> 
+	  <a>
+		<rect class="gray-rect"/>
+		<image xlink:href="/assets/icons/WMI.svg" class="img-centered" filter="url(#duotone)" />
+	  </a>
+	</svg>
+	<br />
+	<font text-anchor="middle" style="margin-left:-3%" color="darkgray">WMI</font>
+</td>
+<td>
+  <svg width="120" height="120"> 
+	  <a>
+		<rect class="gray-rect"/>
+		<image xlink:href="/assets/icons/human-like-behavior.svg" class="img-centered" filter="url(#duotone)" />
+	  </a>
+	</svg>
+	<br />
+	<font text-anchor="middle" style="margin-left:-3%" color="darkgray">Human-like behavior</font>
+</td>
+<td>
+  <svg width="120" height="120"> 
+	  <a>
+		<rect class="gray-rect"/>
+		<image xlink:href="/assets/icons/mac.svg" class="img-centered" filter="url(#duotone)" />
+	  </a>
+	</svg>
+	<br />
+	<font text-anchor="middle" style="margin-left:-3%" color="darkgray">macOS</font>
+</td>
+</tr>
+
+</table>
+
+<br />

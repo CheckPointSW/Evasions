@@ -1,0 +1,46 @@
+
+
+<section>
+<nav class="navbar navbar-default navbar-fixed-top">
+
+  <div class="container">
+    
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{site.baseurl}}/">{{site.title}}</a>
+      
+    </div>
+    <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        {% for page in site.pages %}
+        {% if page.title %}
+        <li><a href="{{page.permalink | prepend: site.baseurl }}">{{page.title}}</a></li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+
+      <!--  <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Know More!</a></li>
+        
+      </ul>-->
+      {% comment %}
+    <form class="form-inline mr-auto pull-right">
+        <div class="md-form my-0">
+          <input class="form-control active-pink" type="text" placeholder="Search" aria-label="Search" id="search-input">
+          <i class="fa fa-search text-white ml-3" aria-hidden="true"></i>
+        </div>
+    </form>
+      {% endcomment %}
+    </div><!-- /.navbar-collapse -->
+    
+  </div><!-- /.container-fluid -->
+
+</nav>
+</section>
