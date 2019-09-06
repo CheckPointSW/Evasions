@@ -25,11 +25,14 @@ A lot of solutions with implemented techniques exist in open-source community. T
 <ul>
 <li>al-khaser project on <a href="https://github.com/LordNoteworthy/al-khaser">github</a></li>
 <li>pafish project on <a href="https://github.com/a0rtega/pafish">github</a></li>
+<li>VMDE project on <a href="https://github.com/hfiref0x/VMDE">github</a></li>
 </ul>
 
-It's important to add that Check Point researchers have produced their own tool called <a href="https://github.com/CheckPointSW/InviZzzible">InviZzzible</a>.
+It's important to add that Check Point researchers have produced their own open-source tool called <a href="https://github.com/CheckPointSW/InviZzzible">InviZzzible</a>.
 
-You're welcome to check out all the tools, browse through evasions encyclopedia and enjoy the journey!
+If you want to contribute to this encyclopedia, you're more than welcome to create pull requests in its <a href="https://github.com/CheckPointSW/Evasions">github</a>.
+
+So check out all the repositories, browse through evasions encyclopedia and enjoy the journey!
 
 <br />
 Raman Ladutska

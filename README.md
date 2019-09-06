@@ -18,14 +18,18 @@ Within each category the reader will find the following information:
 A lot of solutions with implemented techniques exist in open-source community. These solutions are used throughout the encyclopedia in the form of code excerpts from them. We are giving credits to open-source projects from where code sampes were taken: 
 * al-khaser project on [github](al-khaser)
 * pafish project on [github](pafish)
+* VMDE project on [github](vmde)
 
 It's important to add that Check Point researchers have produced their own tool called [InviZzzible](invizzzible).
 
-You're welcome to check out all the tools, browse through evasions encyclopedia and enjoy the journey!
+If you want to contribute to this encyclopedia, you're more than welcome to create pull requests here.
+
+So check out all the repositories, browse through evasions encyclopedia and enjoy the journey!
 
 Raman Ladutska
 
 
 [al-khaser]: <https://github.com/LordNoteworthy/al-khaser>
 [pafish]: <https://github.com/a0rtega/pafish>
+[vmde]: <https://github.com/hfiref0x/VMDE>
 [invizzzible]: <https://github.com/CheckPointSW/InviZzzible>
