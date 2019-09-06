@@ -16,11 +16,11 @@ Within each category the reader will find the following information:
 * possible countermeasures
 
 A lot of solutions with implemented techniques exist in open-source community. These solutions are used throughout the encyclopedia in the form of code excerpts from them. We are giving credits to open-source projects from where code sampes were taken: 
-* al-khaser project on [github](al-khaser)
-* pafish project on [github](pafish)
-* VMDE project on [github](vmde)
+* [al-khaser project][al-khaser]
+* [pafish project][pafish]
+* [VMDE project][vmde]
 
-It's important to add that Check Point researchers have produced their own tool called [InviZzzible](invizzzible).
+It's important to add that Check Point researchers have produced their own tool called [InviZzzible][invizzzible].
 
 If you want to contribute to this encyclopedia, you're more than welcome to create pull requests here.
 
