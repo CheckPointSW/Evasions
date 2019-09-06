@@ -54,13 +54,13 @@
 }
 
 body{
-  background-color: #3e3e3e !important;
+  background-color: #333333 !important;
   font-family: "Fira Mono" !important;
   color: white !important;
 }
 .page-stuff{
   a {
-    color: #ff00aa !important;
+    color: #51bffb !important;
     text-decoration: none;
       &:hover{
         color:#ca0098 !important;
@@ -82,8 +82,8 @@ body{
   background: #161616!important;
 }
 a {
-    color: #03a4fb;
-    text-decoration: none;
+  color:#51bffb !important;
+  text-decoration: none;
 }
 a:hover{
   color:#ca0098 !important;
