@@ -2,7 +2,7 @@
 layout: post
 title:  "Evasions: Generic OS queries"
 categories: evasions 
-tags: generic-os-queries vmware virtualbox
+tags: generic-os-queries
 ---
 
 <style>
@@ -96,6 +96,8 @@ Change user name to non-suspicious one.
 <p></p>
 </details>
 <p></p>
+
+<b>Detections table</b>
 
 <table style="width:62%">
   <tr>
@@ -214,6 +216,8 @@ Change computer name to non-suspicious one.
 </details>
 <p></p>
 
+<b>Detections table</b>
+
 <table style="width:62%">
   <tr>
   	<td colspan="2">Check if computer name is one of the following:</td>
@@ -276,6 +280,8 @@ Change host name to non-suspicious one.
 <p></p>
 </details>
 <p></p>
+
+<b>Detections table</b>
 
 <table style="width:62%">
   <tr>

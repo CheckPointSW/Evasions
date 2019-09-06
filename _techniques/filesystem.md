@@ -2,7 +2,7 @@
 layout: post
 title:  "Evasions: Filesystem"
 categories: evasions 
-tags: filesystem vmware virtualbox
+tags: filesystem
 ---
 
 <style>
@@ -39,8 +39,8 @@ th, td {
 
 
 <br />
-<h2><a name="filesystem-detection-methods">Filesystem setection methods</a></h2>
-The principle of all the filesystem detection methods is the following: there are no such files and directories on usual host; however they exist in particular virtual environments and sandboxes. Virtual environment may be detected if such an artifact is present.
+<h2><a name="filesystem-detection-methods">Filesystem detection methods</a></h2>
+The principle of all the filesystem detection methods is the following: there are no such files and directories in usual host; however they exist in particular virtual environments and sandboxes. Virtual environment may be detected if such an artifact is present.
 
 
 <br />
@@ -110,6 +110,8 @@ If the following function contains its only argument from the table column <font
 then it's an indication of application trying to use the evasion technique.
 </details>
 <p></p>
+
+<b>Detections table</b>
 
 <table style="width:100%">
   <tr>
@@ -353,6 +355,8 @@ then it's an indication of application trying to use the evasion technique.
 </details>
 <p></p>
 
+<b>Detections table</b>
+
 <table style="width:62%">
   <tr>
   	<td colspan="3">Check if the following files exist:</td>
@@ -444,6 +448,8 @@ Signature recommendations are not provided as it's hard to say why exactly appli
 </details>
 <p></p>
 
+<b>Detections table</b>
+
 <table style="width:62%">
   <tr>
   	<td colspan="3">Check if full path to the executable contains one of the following strings:</td>
@@ -479,6 +485,8 @@ As this very method is pretty old and is not commonly used, the links to externa
 <li>anti-emulation <a href="http://web.archive.org/web/20181222042516/www.woodmann.com/forum/showthread.php?12545-Anti-Emulation-Tricks">tricks</a></li> 
 <li>stub for <a href="http://web.archive.org/web/20101026233743/http://evilcry.netsons.org/OC0/code/EmulationAwareness.c">C code</a></li> 
 </ul>
+
+<b>Detections table</b>
 
 <table style="width:62%">
   <tr>
@@ -572,6 +580,8 @@ then it's an indication of application trying to use the evasion technique.
 </details>
 <p></p>
 
+<b>Detections table</b>
+
 <table style="width:62%">
   <tr>
   	<td colspan="2">Check if the executables with particular names are present in disk root:</td>
@@ -598,7 +608,7 @@ Hook target functions and return appropriate results if indicators (files from t
 <br />
 <h3><a name="credits">Credits</a></h3>
 
-Credits go to open-source projects from where code sampes were taken: 
+Credits go to open-source projects from where code sampes were taken:
 <ul>
 <li>al-khaser project on <a href="https://github.com/LordNoteworthy/al-khaser">github</a></li>
 <li>pafish project on <a href="https://github.com/a0rtega/pafish">github</a></li>

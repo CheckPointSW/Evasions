@@ -3,7 +3,7 @@ layout: post
 title:  "Evasions: Registry"
 title-image: "/assets/icons/registry.svg"
 categories: evasions 
-tags: registry vmware virtualbox
+tags: registry
 ---
 
 <style>
@@ -36,7 +36,7 @@ th, td {
 
 <br />
 <h2><a name="registry-detection-methods">Registry detection methods</a></h2>
-The principle of all the registry detection methods is the following: there are no such registry keys and values on usual host. However they exist in particular virtual environments.
+The principle of all the registry detection methods is the following: there are no such registry keys and values in usual host. However they exist in particular virtual environments.
 
 Sometimes usual system may cause false positives when these checks are applied because it has some virtual machines installed and thus some VM artifacts are present in the system. Though in all other aspects such a system is treated clean in comparison with virtual environments.
 
@@ -113,6 +113,8 @@ If the following function contains 2nd argument from the table column <font face
 then it's an indication of application trying to use the evasion technique.
 </details>
 <p></p>
+
+<b>Detections table</b>
 
 <table style="width:100%">
   <tr>
@@ -425,6 +427,8 @@ and is followed by the call to the following function with 2nd argument from the
 then it's an indication of application trying to use the evasion technique.
 </details>
 <p></p>
+
+<b>Detections table</b>
 
 <table style="width:100%">
   <tr>
