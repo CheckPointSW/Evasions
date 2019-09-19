@@ -21,7 +21,7 @@ url: "http://127.0.0.1:4000" # the base hostname & protocol for your site
 
 # Build settings
 markdown: kramdown
-theme: jekyll-theme-slate
+theme: jekyll-theme-architect
 # highlighter: pygments
 
 collections:
