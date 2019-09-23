@@ -35,7 +35,7 @@ th, td {
 
 
 <br />
-<h2><a name="registry-detection-methods">Registry detection methods</a></h2>
+<h2><a class="a-dummy" name="registry-detection-methods">Registry detection methods</a></h2>
 The principle of all the registry detection methods is the following: there are no such registry keys and values in usual host. However they exist in particular virtual environments.
 
 Sometimes usual system may cause false positives when these checks are applied because it has some virtual machines installed and thus some VM artifacts are present in the system. Though in all other aspects such a system is treated clean in comparison with virtual environments.
@@ -61,7 +61,7 @@ Functions above are wrappers on top of the following <font face="Courier New">nt
 </ul>
 
 <br />
-<h3><a name="check-if-particular-registry-paths-exist">1. Check if particular registry paths exist</a></h3>
+<h3><a class="a-dummy" name="check-if-particular-registry-paths-exist">1. Check if particular registry paths exist</a></h3>
 
 Take a look at [title section](#registry-detection-methods) to get the list of used functions.
 
@@ -343,7 +343,7 @@ In particular cases malware may enumerate sub-keys and check if a name of the su
 For example: enumerate sub-keys of <font face="Courier New">"HKLM\SYSTEM\ControlSet001\Services\"</font> and search for <font face="Courier New">"VBox"</font> string.
 
 <br />
-<h3><a name="check-if-specific-directories-present">2. Check if particular registry keys contain specified strings</a></h3>
+<h3><a class="a-dummy" name="check-if-specific-directories-present">2. Check if particular registry keys contain specified strings</a></h3>
 
 Take a look at [title section](#registry-detection-methods) to get the list of used functions. Please note that case is irrelevant for these checks: it may be either upper or lower.
 
@@ -744,12 +744,12 @@ then it's an indication of application trying to use the evasion technique.
 
 
 <br />
-<h3><a name="countermeasures">Countermeasures</a></h3>
+<h3><a class="a-dummy" name="countermeasures">Countermeasures</a></h3>
 
 Hook target functions and return appropriate results if indicators (registry strings from tables) are checked.
 
 <br />
-<h3><a name="credits">Credits</a></h3>
+<h3><a class="a-dummy" name="credits">Credits</a></h3>
 
 Credits go to open-source project from where code sampes were taken: 
 <ul>

@@ -39,12 +39,12 @@ th, td {
 
 
 <br />
-<h2><a name="filesystem-detection-methods">Filesystem detection methods</a></h2>
+<h2><a class="a-dummy" name="filesystem-detection-methods">Filesystem detection methods</a></h2>
 The principle of all the filesystem detection methods is the following: there are no such files and directories in usual host; however they exist in particular virtual environments and sandboxes. Virtual environment may be detected if such an artifact is present.
 
 
 <br />
-<h3><a name="check-if-specific-files-exist">1. Check if specific files exist</a></h3>
+<h3><a class="a-dummy" name="check-if-specific-files-exist">1. Check if specific files exist</a></h3>
 
 This method uses the difference in files which are present in usual host system and virtual environments. There are quite a few file artifacts present in virtual environments which are specific for such kinds of systems. These files are not present on usual host systems where no virtual environment is installed.
 
@@ -303,7 +303,7 @@ then it's an indication of application trying to use the evasion technique.
 
 
 <br />
-<h3><a name="check-if-specific-directories-present">2. Check if specific directories are present</a></h3>
+<h3><a class="a-dummy" name="check-if-specific-directories-present">2. Check if specific directories are present</a></h3>
 
 This method uses the difference in directories which are present in usual host system and virtual environments. There are quite a few directory artifacts present in virtual environments which are specific for such kinds of systems. These directories are not present on usual host systems where no virtual environment is installed.
 
@@ -381,7 +381,7 @@ then it's an indication of application trying to use the evasion technique.
 
 
 <br />
-<h3><a name="check-if-full-path-exec">3. Check if full path to the executable contains one of the specific strings</a></h3>
+<h3><a class="a-dummy" name="check-if-full-path-exec">3. Check if full path to the executable contains one of the specific strings</a></h3>
 
 This method relies on peculiarities of launching executables inside virtual environments. Some environments launch executables from specific paths - and malware samples check these paths.
 
@@ -472,7 +472,7 @@ Signature recommendations are not provided as it's hard to say why exactly appli
 
 
 <br />
-<h3><a name="check-if-exec-is-run">4. Check if the executable is run from specific directory</a></h3>
+<h3><a class="a-dummy" name="check-if-exec-is-run">4. Check if the executable is run from specific directory</a></h3>
 
 This method relies on peculiarities of launching executables inside virtual environments. Some environments launch executables from specific directories - and malware samples check these directories.
 
@@ -504,7 +504,7 @@ As this very method is pretty old and is not commonly used, the links to externa
 
 
 <br />
-<h3><a name="check-if-exec-files-with-specific-names">5. Check if the executable files with specific names are present in physical disk drives' root</a></h3>
+<h3><a class="a-dummy" name="check-if-exec-files-with-specific-names">5. Check if the executable files with specific names are present in physical disk drives' root</a></h3>
 
 This method relies on peculiarities of virtual environments, in this case it's presence of specific files in disk root root directories.
 
@@ -601,12 +601,12 @@ then it's an indication of application trying to use the evasion technique.
 
 
 <br />
-<h3><a name="countermeasures">Countermeasures</a></h3>
+<h3><a class="a-dummy" name="countermeasures">Countermeasures</a></h3>
 
 Hook target functions and return appropriate results if indicators (files from tables) are checked.
 
 <br />
-<h3><a name="credits">Credits</a></h3>
+<h3><a class="a-dummy" name="credits">Credits</a></h3>
 
 Credits go to open-source projects from where code sampes were taken:
 <ul>

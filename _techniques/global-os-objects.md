@@ -41,12 +41,12 @@ th, td {
 
 
 <br />
-<h2><a name="global-objects-detection-methods">Global objects detection methods</a></h2>
+<h2><a class="a-dummy" name="global-objects-detection-methods">Global objects detection methods</a></h2>
 The principle of all the global objects detection methods is the following: there are no such objects in usual host; however they exist in particular virtual environments and sandboxes. Virtual environment may be detected if such an artifact is present.
 
 
 <br />
-<h3><a name="check-if-specific-mutexes-present">1. Check for specific global mutexes</a></h3>
+<h3><a class="a-dummy" name="check-if-specific-mutexes-present">1. Check for specific global mutexes</a></h3>
 
 This method checks for particular mutexes which are present in virtual environments but not in usual host systems.
 
@@ -134,7 +134,7 @@ then it's an indication of application trying to use the evasion technique.
 Note: DeepFreeze is an application restoring the system on each reboot.
 
 <br />
-<h3><a name="check-if-specific-virtual-devices-present">2. Check for specific virtual devices</a></h3>
+<h3><a class="a-dummy" name="check-if-specific-virtual-devices-present">2. Check for specific virtual devices</a></h3>
 
 This method checks for particular virtual devices which are present in virtual environments but not in usual host systems.
 
@@ -260,7 +260,7 @@ typedef struct _OBJECT_ATTRIBUTES {
 
 
 <br />
-<h3><a name="check-if-pipes-present">3. Check for specific global pipes</a></h3>
+<h3><a class="a-dummy" name="check-if-pipes-present">3. Check for specific global pipes</a></h3>
 
 Pipes are just a particular case of virtual devices, please refer to the <a href="#check-if-specific-virtual-devices-present">previous section</a> for code sample and signature recommendations.
 
@@ -285,7 +285,7 @@ Pipes are just a particular case of virtual devices, please refer to the <a href
 
 
 <br />
-<h3><a name="check-if-objects-present">4. Check for global objects</a></h3>
+<h3><a class="a-dummy" name="check-if-objects-present">4. Check for global objects</a></h3>
 
 This method checks for particular global objects which are present in virtual environments but not in usual host systems.
 
@@ -506,7 +506,7 @@ NTSTATUS NTAPI supEnumSystemObjects(
 
 
 <br />
-<h3><a name="check-if-object-directory-present">5. Check for object directory (Sandboxie only)</a></h3>
+<h3><a class="a-dummy" name="check-if-object-directory-present">5. Check for object directory (Sandboxie only)</a></h3>
 
 This method checks for particular object directory which is present in Sandboxie virtual environment but not in usual host systems.
 
@@ -591,7 +591,7 @@ typedef struct _OBJECT_ATTRIBUTES {
 
 
 <br />
-<h3><a name="check-if-virtual-registry-present">6. Check if virtual registry is present in OS (Sandboxie only)</a></h3>
+<h3><a class="a-dummy" name="check-if-virtual-registry-present">6. Check if virtual registry is present in OS (Sandboxie only)</a></h3>
 
 This method checks for virtual registry which is present in Sandboxie virtual environment but not in usual host systems.
 
@@ -627,12 +627,12 @@ then it's an indication of application trying to use the evasion technique.
 
 
 <br />
-<h3><a name="countermeasures">Countermeasures</a></h3>
+<h3><a class="a-dummy" name="countermeasures">Countermeasures</a></h3>
 
 Hook target functions and return appropriate results if indicators (objects from tables) are triggered. In some cases stopping appropriate device may help — but it's not a universal counter-action: not all global objects are devices.
 
 <br />
-<h3><a name="credits">Credits</a></h3>
+<h3><a class="a-dummy" name="credits">Credits</a></h3>
 
 Credits go to open-source project from where code sampes were taken: 
 <ul>

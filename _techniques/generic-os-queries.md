@@ -53,7 +53,7 @@ th, td {
 Signature recommendations are general for each technique: hook the function used and track if it is called. It's pretty hard to tell why application wants to get user name, for example. It doesn't necessarily mean applying evasion technique. So the best what can be done in this situation is intercepting target functions and tracking their calls.
 
 <br />
-<h2><a name="generic-os-queries">Detection via generic OS checks</a></h2>
+<h2><a class="a-dummy" name="generic-os-queries">Detection via generic OS checks</a></h2>
 
 Usual hosts have meaningful and non-standard usernames/computer names. Particular virtual environments assign some predefined names to default users as well as computer names.
 Other differences between host OS and VMs include RAM size, HDD size, quantity of monitors - and so on.
@@ -61,7 +61,7 @@ While these may be not the most reliable ways to detect virtual environments, th
 
 
 <br />
-<h3><a name="check-if-username-is-specific">1. Check if username is specific</a></h3>
+<h3><a class="a-dummy" name="check-if-username-is-specific">1. Check if username is specific</a></h3>
 
 Please note that checks are not case-sensitive.
 
@@ -180,7 +180,7 @@ Change user name to non-suspicious one.
 
 
 <br />
-<h3><a name="check-if-computer-name-is-specific">2. Check if computer name is specific</a></h3>
+<h3><a class="a-dummy" name="check-if-computer-name-is-specific">2. Check if computer name is specific</a></h3>
 
 Please note that checks are not case-sensitive.
 
@@ -245,7 +245,7 @@ Change computer name to non-suspicious one.
 
 
 <br />
-<h3><a name="check-if-host-name-is-specific">3. Check if host name is specific</a></h3>
+<h3><a class="a-dummy" name="check-if-host-name-is-specific">3. Check if host name is specific</a></h3>
 
 Please note that checks are not case-sensitive.
 
@@ -299,7 +299,7 @@ Change host name to non-suspicious one.
 
 
 <br />
-<h3><a name="check-if-total-ram-is-low">4. Check if total RAM is low</a></h3>
+<h3><a class="a-dummy" name="check-if-total-ram-is-low">4. Check if total RAM is low</a></h3>
 
 Functions used to get executable path:
 <ul>
@@ -342,7 +342,7 @@ Alternatively, patch <font face="Courier New">NumberOfPhysicalPages</font> in <f
 
 
 <br />
-<h3><a name="check-if-screen-res">5. Check if screen resolution is non-usual for host OS</a></h3>
+<h3><a class="a-dummy" name="check-if-screen-res">5. Check if screen resolution is non-usual for host OS</a></h3>
 
 The following set of functions is used:
 <ul>
@@ -375,7 +375,7 @@ Change screen resolution for it to match the resolution of usual host (1600x900,
 
 
 <br />
-<h3><a name="check-if-number-of-processors">6. Check if number of processors is low</a></h3>
+<h3><a class="a-dummy" name="check-if-number-of-processors">6. Check if number of processors is low</a></h3>
 
 Function used:
 <ul>
@@ -466,7 +466,7 @@ As an alternative solution, patch/hook <font face="Courier New">NtCreateThread</
 
 
 <br />
-<h3><a name="check-if-quantity-of-monitors">7. Check if quantity of monitors is small</a></h3>
+<h3><a class="a-dummy" name="check-if-quantity-of-monitors">7. Check if quantity of monitors is small</a></h3>
 
 Functions used:
 <ul>
@@ -512,7 +512,7 @@ Add at least one monitor to virtual environment.
 
 
 <br />
-<h3><a name="check-if-hard-disk">8. Check if hard disk drive size and free space are small</a></h3>
+<h3><a class="a-dummy" name="check-if-hard-disk">8. Check if hard disk drive size and free space are small</a></h3>
 
 Functions used:
 <ul>
@@ -599,7 +599,7 @@ in case if handle points to <font face="Courier New">\\Device\\HarddiskVolumeN</
 
 
 <br />
-<h3><a name="check-if-system-uptime">9. Check if system uptime is small</a></h3>
+<h3><a class="a-dummy" name="check-if-system-uptime">9. Check if system uptime is small</a></h3>
 
 Function used:
 <ul>
@@ -633,7 +633,7 @@ Add some value to number of ticks returned from <font face="Courier New">GetTick
 
 
 <br />
-<h3><a name="check-if-os-was-boot-from-virtual-disk">10. Check if os was boot from virtual hard disk (Win8+)</a></h3>
+<h3><a class="a-dummy" name="check-if-os-was-boot-from-virtual-disk">10. Check if os was boot from virtual hard disk (Win8+)</a></h3>
 
 Function used:
 <ul>
@@ -683,12 +683,12 @@ Hook <font face="Courier New">IsNativeVhdBoot</font> and change its result to th
 
 
 <br />
-<h3><a name="countermeasures">Countermeasures</a></h3>
+<h3><a class="a-dummy" name="countermeasures">Countermeasures</a></h3>
 
 Countermeasures are present in appropriate sub-sections, see above.
 
 <br />
-<h3><a name="credits">Credits</a></h3>
+<h3><a class="a-dummy" name="credits">Credits</a></h3>
 
 Credits go to open-source projects from where code sampes were taken: 
 <ul>

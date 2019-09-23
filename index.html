@@ -42,6 +42,15 @@ body {
     display: inline-flex;
     background-color: rgb(255,86,136);
     padding: 10px;
+    border: 0px;
+}
+.outer-img-pink:hover {
+    height: 120px;
+    width: 120px;
+    display: inline-flex;
+    background-color: rgb(255,86,136);
+    padding: 10px;
+    border: 0px;
 }
 
 .outer-img-grey {
@@ -50,6 +59,15 @@ body {
     display: inline-flex;
     background-color: rgb(159,159,159);
     padding: 10px;
+    border: 0px;
+}
+.outer-img-grey:hover {
+    height: 120px;
+    width: 120px;
+    display: inline-flex;
+    background-color: rgb(159,159,159);
+    padding: 10px;
+    border: 0px;
 }
 
 .inner-img {
@@ -72,10 +90,7 @@ body {
   display: block;
 }
 
-a {
-    color: #51bffb;
-    text-decoration: none;
-}
+
 
 </style>
 </head>
@@ -99,36 +114,47 @@ a {
     <!-- first row -->
     
     <div>
-      <a href="techniques/filesystem.html" >
-        <span class="outer-img-pink">  
-          <span class="inner-img" style='background-image:url("assets/icons/filesystem.svg")' />
+      <div>
+        <span class="outer-img-pink">
+          <a class="a-active" href="techniques/filesystem.html" >
+            <span class="inner-img" style='background-image:url("assets/icons/filesystem.svg")' />
+          </a>
         </span>
-      </a>
-      <a href="techniques/filesystem.html" >Filesystem</a>
+      <a class="a-active" href="techniques/filesystem.html" >Filesystem</a>
+     </div>
     </div>
+    
     <div>
-      <a href="techniques/registry.html" >
+      <div>
         <span class="outer-img-pink">  
-          <span class="inner-img" style='background-image:url("assets/icons/registry.svg")' />
+          <a class="a-active" href="techniques/registry.html" >
+            <span class="inner-img" style='background-image:url("assets/icons/registry.svg")' />
+          </a>
         </span>
-      </a>
-      <a href="techniques/registry.html">Registry</a>
+        <a class="a-active" href="techniques/registry.html">Registry</a>
+      </div>
     </div>
+    
     <div>
-      <a href="techniques/generic-os-queries.html" >
+      <div>
         <span class="outer-img-pink">  
-          <span class="inner-img" style='background-image:url("assets/icons/generic-os-queries.svg")' />
+          <a class="a-active" href="techniques/generic-os-queries.html" >
+            <span class="inner-img" style='background-image:url("assets/icons/generic-os-queries.svg")' />
+          </a>
         </span>
-      </a>
-      <a href="techniques/generic-os-queries.html">Generic OS queries</a>
-    </div>  
+        <a class="a-active" href="techniques/generic-os-queries.html">Generic OS queries</a>
+      </div>
+    </div>
+    
     <div>
-      <a href="techniques/global-os-objects.html">
-        <span class="outer-img-pink">  
-          <span class="inner-img" style='background-image:url("assets/icons/global-os-objects.svg")' />
+      <div>
+        <span class="outer-img-pink"> 
+          <a class="a-active" href="techniques/global-os-objects.html">
+            <span class="inner-img" style='background-image:url("assets/icons/global-os-objects.svg")' />                
+          </a>
         </span>
-      </a>
-      <a href="techniques/global-os-objects.html">Global OS objects</a>
+      <a class="a-active" href="techniques/global-os-objects.html">Global OS objects</a>
+      </div>
     </div>
     
     <!-- second row -->
