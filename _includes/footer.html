@@ -10,11 +10,12 @@ a:hover {
 a:active, a:focus {
   outline: 0;
   border: none;
+  text-decoration: none;
   -moz-outline-style: none;
 }
 
 .a-active {
-  display: grid;
+  display: block;
 }
 
 .a-pink {
@@ -24,6 +25,10 @@ a:active, a:focus {
 
 .a-dummy {
   pointer-events: none;
+  text-decoration: none;
+}
+.a-dummy:active, .a-dummy:hover, .a-dummy:focus {
+  text-decoration: none;
 }
 </style>
 
