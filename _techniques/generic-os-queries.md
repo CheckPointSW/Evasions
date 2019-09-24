@@ -33,9 +33,9 @@ tags: generic-os-queries
 <br />
 [Credits](#credits)
 <br />
-
-
 <br />
+
+
 <h3>Signature recommendations are general</h3>
 Signature recommendations are general for each technique: hook the function used and track if it is called. It's pretty hard to tell why application wants to get user name, for example. It doesn't necessarily mean applying evasion technique. So the best what can be done in this situation is intercepting target functions and tracking their calls.
 
@@ -57,7 +57,9 @@ Function used:
 <li><tt>GetUserNameA/W</tt></li> 
 </ul>
 
-<details><summary>Code sample</summary>
+<hr class="space">
+
+<b>Code sample</b>
 <p></p>
 
 {% highlight c %}
@@ -74,15 +76,14 @@ bool is_user_name_match(const std::string &s) {
 
 <i>Code sample is taken from <a href="https://github.com/CheckPointSW/InviZzzible">InviZzzible tool</a> </i>
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Countermeasures</summary>
+<b>Countermeasures</b>
 <p></p>
 Change user name to non-suspicious one.
 <p></p>
-</details>
-<p></p>
+
+<hr class="space">
 
 <b>Detections table</b>
 
@@ -176,7 +177,9 @@ Function used:
 <li><tt>GetComputerNameA/W</tt></li>
 </ul>
 
-<details><summary>Code sample</summary>
+<hr class="space">
+
+<b>Code sample</b>
 <p></p>
 
 {% highlight c %}
@@ -193,15 +196,14 @@ bool is_computer_name_match(const std::string &s) {
 
 <i>Code sample is taken from <a href="https://github.com/CheckPointSW/InviZzzible">InviZzzible tool</a> </i>
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Countermeasures</summary>
+<b>Countermeasures</b>
 <p></p>
 Change computer name to non-suspicious one.
 <p></p>
-</details>
-<p></p>
+
+<hr class="space">
 
 <b>Detections table</b>
 
@@ -241,7 +243,9 @@ Function used:
 <li><tt>GetComputerNameExA/W</tt></li> 
 </ul>
 
-<details><summary>Code sample</summary>
+<hr class="space">
+
+<b>Code sample</b>
 <p></p>
 
 {% highlight c %}
@@ -258,15 +262,14 @@ bool is_host_name_match(const std::string &s) {
 
 <i>Code sample is taken from <a href="https://github.com/CheckPointSW/InviZzzible">InviZzzible tool</a> </i>
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Countermeasures</summary>
+<b>Countermeasures</b>
 <p></p>
 Change host name to non-suspicious one.
 <p></p>
-</details>
-<p></p>
+
+<hr class="space">
 
 <b>Detections table</b>
 
@@ -293,7 +296,9 @@ Functions used to get executable path:
 <li><tt>GetMemoryStatusEx</tt></li>
 </ul>
 
-<details><summary>Code sample</summary>
+<hr class="space">
+
+<b>Code sample</b>
 <p></p>
 
 {% highlight c %}
@@ -311,10 +316,9 @@ BOOL memory_space()
 
 <i>Credits for this code sample: <a href="https://github.com/LordNoteworthy/al-khaser">al-khaser project</a> </i>
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Countermeasures</summary>
+<b>Countermeasures</b>
 <p></p>
 Patch/hook <font face="Courier New">NtQuerySystemInformation</font> to return new number of <font face="Courier New">PhysicalPages</font> in <font face="Courier New">SystemBasicInformation</font>.
 
@@ -323,8 +327,6 @@ Tip: in this case its 1st argument is equal to 2 - SystemPerformanceInformation 
 
 <p></p>
 Alternatively, patch <font face="Courier New">NumberOfPhysicalPages</font> in <font face="Courier New">KUSER_SHARED_DATA</font>.
-<p></p>
-</details>
 <p></p>
 
 
@@ -344,21 +346,19 @@ Alternatively:
 <li><tt>GetMonitorInfo</tt></li> 
 </ul>
 
-<details><summary>Code sample</summary>
+<hr class="space">
+
+<b>Code sample</b>
 <p></p>
 
 Take a look at this <a href="https://stackoverflow.com/questions/4631292/how-detect-current-screen-resolution">StackOverflow thread</a>.
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Countermeasures</summary>
+<b>Countermeasures</b>
 <p></p>
 
 Change screen resolution for it to match the resolution of usual host (1600x900, for example).
-
-</details>
-<p></p>
 
 
 <br />
@@ -371,7 +371,9 @@ Function used:
 
 Besides this function numbers of processors can be obtained from PEB, via either asm inline or intrinsic function, see code samples below.
 
-<details><summary>Code sample (variant 1, al-khaser project)</summary>
+<hr class="space">
+
+<b>Code sample (variant 1, al-khaser project)</b>
 <p></p>
 
 {% highlight c %}
@@ -394,10 +396,9 @@ BOOL NumberOfProcessors()
 
 <i>Credits for this code sample: <a href="https://github.com/LordNoteworthy/al-khaser">al-khaser project</a> </i>
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Code sample (variant 2, al-khaser project, asm inline)</summary>
+<b>Code sample (variant 2, al-khaser project, asm inline)</b>
 <p></p>
 
 {% highlight c %}
@@ -420,10 +421,9 @@ DWORD get_number_of_processors() {
 
 <i>Credits for this code sample: <a href="https://github.com/LordNoteworthy/al-khaser">al-khaser project</a> </i>
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Code sample (variant 3, pafish project)</summary>
+<b>Code sample (variant 3, pafish project)</b>
 <p></p>
 
 {% highlight c %}
@@ -438,18 +438,14 @@ int gensandbox_one_cpu_GetSystemInfo() {
 
 <i>Credits for this code sample: <a href="https://github.com/a0rtega/pafish">pafish project</a> </i>
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Countermeasures</summary>
+<b>Countermeasures</b>
 <p></p>
 
 Assign two or more cores for Virtual Machine.
 <p></p>
 As an alternative solution, patch/hook <font face="Courier New">NtCreateThread</font> to assign specific core for each new thread.
-
-</details>
-<p></p>
 
 
 <br />
@@ -461,7 +457,9 @@ Functions used:
 <li><tt>GetSystemMetrics (SM_MONITOR)</tt></li> 
 </ul>
 
-<details><summary>Code sample</summary>
+<hr class="space">
+
+<b>Code sample</b>
 <p></p>
 
 {% highlight c %}
@@ -478,24 +476,19 @@ int MonitorCount()
     int Count = 0;
     if (EnumDisplayMonitors(NULL, NULL, MonitorEnumProc, (LPARAM)&Count))
         return Count;
-    return -1;//signals an error
+    return -1; // signals an error
 }
 
 {% endhighlight %}
 
 <i>Credits for this code sample: <a href="https://stackoverflow.com/questions/7767036/how-do-i-get-the-number-of-displays-in-windows">StackOverflow forum</a> </i>
 
+<hr class="space">
 
-</details>
-<p></p>
-
-<details><summary>Countermeasures</summary>
+<b>Countermeasures</b>
 <p></p>
 
 Add at least one monitor to virtual environment.
-
-</details>
-<p></p>
 
 
 <br />
@@ -507,7 +500,9 @@ Functions used:
 <li><tt>GetDiskFreeSpaceExA/W</tt></li>
 </ul>
 
-<details><summary>Code sample (checking drive total size)</summary>
+<hr class="space">
+
+<b>Code sample (checking drive total size)</b>
 <p></p>
 
 {% highlight c %}
@@ -537,10 +532,9 @@ int gensandbox_drive_size() {
 
 <i>Credits for this code sample: <a href="https://github.com/LordNoteworthy/al-khaser">al-khaser project</a> </i>
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Code sample (checking drive free space)</summary>
+<b>Code sample (checking drive free space)</b>
 <p></p>
 
 {% highlight c %}
@@ -561,10 +555,9 @@ int gensandbox_drive_size2() {
 
 <i>Credits for this code sample: <a href="https://github.com/LordNoteworthy/al-khaser">al-khaser project</a> </i>
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Countermeasures</summary>
+<b>Countermeasures</b>
 <p></p>
 
 <i>Against checking disk size:</i> filter <font face="Courier New">IRP</font> device control requests to <font face="Courier New"> \\Device\\HarddiskN</font> with specific CTL-codes:
@@ -580,9 +573,6 @@ int gensandbox_drive_size2() {
 <li><tt>FileFsFullSizeInformation</tt></li>
 </ul>
 in case if handle points to <font face="Courier New">\\Device\\HarddiskVolumeN</font>.
- 
-</details>
-<p></p>
 
 
 <br />
@@ -593,7 +583,7 @@ Function used:
 <li><tt>GetTickCount</tt></li>
 </ul>
 
-<details><summary>Code sample</summary>
+<b>Code sample</b>
 <p></p>
 
 {% highlight c %}
@@ -607,16 +597,12 @@ bool Generic::CheckSystemUptime() const {
 
 {% endhighlight %}
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Countermeasures</summary>
+<b>Countermeasures</b>
 <p></p>
 
 Add some value to number of ticks returned from <font face="Courier New">GetTickCount</font> function.
-
-</details>
-<p></p>
 
 
 <br />
@@ -627,15 +613,14 @@ Function used:
 <li><tt>IsNativeVhdBoot  // false on host OS, true within VM</tt></li>
 </ul>
 
-<details><summary>Code sample (excerpt from malware)</summary>
+<b>Code sample (excerpt from malware)</b>
 <p></p>
 
 Take a look at the excerpt from malware <a href="https://github.com/a0rtega/pafish/issues/46">here</a>.
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Code sample (pafish project)</summary>
+<b>Code sample (pafish project)</b>
 <p></p>
 
 {% highlight c %}
@@ -657,16 +642,12 @@ int gensandbox_IsNativeVhdBoot() {
 
 <i>Credits for this code sample: <a href="https://github.com/a0rtega/pafish">pafish project</a> </i>
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Countermeasures</summary>
+<b>Countermeasures</b>
 <p></p>
 
 Hook <font face="Courier New">IsNativeVhdBoot</font> and change its result to the one required.
-
-</details>
-<p></p>
 
 
 <br />

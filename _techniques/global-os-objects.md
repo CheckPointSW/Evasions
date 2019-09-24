@@ -25,9 +25,9 @@ tags: filesystem vmware virtualbox
 <br />
 [Credits](#credits)
 <br />
-
-
 <br />
+
+
 <h2><a class="a-dummy" name="global-objects-detection-methods">Global objects detection methods</a></h2>
 The principle of all the global objects detection methods is the following: there are no such objects in usual host; however they exist in particular virtual environments and sandboxes. Virtual environment may be detected if such an artifact is present.
 
@@ -43,7 +43,9 @@ Functions used:
 <li><tt>OpenMutexA/W</tt></li> 
 </ul>
 
-<details><summary>Code sample</summary>
+<hr class="space">
+
+<b>Code sample</b>
 <p></p>
 
 {% highlight c %}
@@ -75,10 +77,9 @@ BOOL supMutexExist(_In_ LPWSTR lpMutexName)
 
 <i>Credits for this code sample: <a href="https://github.com/hfiref0x/VMDE">VMDE project</a> </i>
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Signature recommendations</summary>
+<b>Signature recommendations</b>
 <p></p>
 If the following function contains 3rd argument from the table column <font face="Courier New">`Name`</font>:
 <p></p>
@@ -87,8 +88,8 @@ If the following function contains 3rd argument from the table column <font face
 <li><tt>OpenMutexA/W(..., ..., registry_path)</tt></li> 
 </ul>
 then it's an indication of application trying to use the evasion technique.
-</details>
-<p></p>
+
+<hr class="space">
 
 <b>Detections table</b>
 
@@ -130,7 +131,9 @@ Function used:
 <li><tt>NtCreateFile</tt></li> 
 </ul>
 
-<details><summary>Code sample</summary>
+<hr class="space">
+
+<b>Code sample</b>
 <p></p>
 
 {% highlight c %}
@@ -178,10 +181,9 @@ BOOL supOpenDevice(
 
 <i>Credits for this code sample: <a href="https://github.com/hfiref0x/VMDE">VMDE project</a> </i>
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Signature recommendations</summary>
+<b>Signature recommendations</b>
 <p></p>
 If the following function contains 3rd argument with its field <font face="Courier New">`ObjectName->Buffer`</font> from the table column <font face="Courier New">`Name`</font>:
 <p></p>
@@ -190,7 +192,6 @@ If the following function contains 3rd argument with its field <font face="Couri
 </ul>
 then it's an indication of application trying to use the evasion technique.
 
-<br />
 <br />
 3rd argument is of the following type:
 {% highlight c %}
@@ -204,8 +205,7 @@ typedef struct _OBJECT_ATTRIBUTES {
 } OBJECT_ATTRIBUTES;
 {% endhighlight %}
 
-</details>
-<p></p>
+<hr class="space">
 
 <b>Detections table</b>
 
@@ -251,6 +251,8 @@ typedef struct _OBJECT_ATTRIBUTES {
 
 Pipes are just a particular case of virtual devices, please refer to the <a href="#check-if-specific-virtual-devices-present">previous section</a> for code sample and signature recommendations.
 
+<hr class="space">
+
 <b>Detections table</b>
 
 <table style="width:62%">
@@ -282,7 +284,9 @@ Functions used:
 <li><tt>NtQueryDirectoryObject</tt></li> 
 </ul>
 
-<details><summary>Code sample</summary>
+<hr class="space">
+
+<b>Code sample</b>
 <p></p>
 
 {% highlight c %}
@@ -414,8 +418,7 @@ NTSTATUS NTAPI supEnumSystemObjects(
 
 <i>Credits for this code sample: <a href="https://github.com/hfiref0x/VMDE">VMDE project</a> </i>
 
-</details>
-<p></p>
+<hr class="space">
 
 <b>Detections table</b>
 
@@ -503,7 +506,9 @@ Function used:
 <li><tt>GetFileAttributes</tt></li> 
 </ul>
 
-<details><summary>Code sample</summary>
+<hr class="space">
+
+<b>Code sample</b>
 <p></p>
 
 {% highlight c %}
@@ -533,10 +538,9 @@ int check_if_obj_dir_present() {
 
 <i>Credits for this code sample: <a href="https://github.com/hfiref0x/VMDE">VMDE project</a> </i>
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Signature recommendations</summary>
+<b>Signature recommendations</b>
 <p></p>
 If the following function contains 3rd argument with its field <font face="Courier New">"ObjectName->Buffer"</font> from the table column <font face="Courier New">`Name`</font>:
 <p></p>
@@ -544,7 +548,7 @@ If the following function contains 3rd argument with its field <font face="Couri
 <li><tt>NtOpenDirectoryObject(..., ..., attr, ...)</tt></li> 
 </ul>
 then it's an indication of application trying to use the evasion technique.
-<br />
+
 <br />
 3rd argument is of the following type:
 {% highlight c %}
@@ -558,8 +562,7 @@ typedef struct _OBJECT_ATTRIBUTES {
 } OBJECT_ATTRIBUTES;
 {% endhighlight %}
 
-</details>
-<p></p>
+<hr class="space">
 
 <b>Detections table</b>
 
@@ -596,7 +599,9 @@ NtQueryObject(
 
 If received <font face="Courier New">OBJECT_NAME_INFORMATION</font> object name does not equal to the <font face="Courier New">"\REGISTRY\USER"</font>, then application assumes that it runs inside Sandboxie environment.
 
-<details><summary>Signature recommendations</summary>
+<hr class="space">
+
+<b>Signature recommendations</b>
 <p></p>
 If the following function is used for opening <font face="Courier New">\REGISTRY\USER</font>:
 <p></p>
@@ -608,10 +613,6 @@ and is followed by the call of the following function with its 1st argument bein
 <li><tt>NtQueryObject(hUserKey, ...)</tt></li> 
 </ul>
 then it's an indication of application trying to use the evasion technique.
-</details>
-<p></p>
-
-
 
 
 <br />

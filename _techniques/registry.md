@@ -18,9 +18,9 @@ tags: registry
 <br />
 [Credits](#credits)
 <br />
-
-
 <br />
+
+
 <h2><a class="a-dummy" name="registry-detection-methods">Registry detection methods</a></h2>
 The principle of all the registry detection methods is the following: there are no such registry keys and values in usual host. However they exist in particular virtual environments.
 
@@ -51,7 +51,9 @@ Functions above are wrappers on top of the following <font face="Courier New">nt
 
 Take a look at [title section](#registry-detection-methods) to get the list of used functions.
 
-<details><summary>Code sample</summary>
+<hr class="space">
+
+<b>Code sample</b>
 <p></p>
 
 {% highlight c %}
@@ -86,10 +88,9 @@ int pafish_exists_regkey(HKEY hKey, char * regkey_s) {
 
 <i>Credits for this code sample: <a href="https://github.com/a0rtega/pafish">pafish project</a> </i>
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Signature recommendations</summary>
+<b>Signature recommendations</b>
 <p></p>
 If the following function contains 2nd argument from the table column <font face="Courier New">`Registry path`</font>:
 <p></p>
@@ -97,8 +98,8 @@ If the following function contains 2nd argument from the table column <font face
 <li><tt>NtOpenKey(..., registry_path, ...)</tt></li> 
 </ul>
 then it's an indication of application trying to use the evasion technique.
-</details>
-<p></p>
+
+<hr class="space">
 
 <b>Detections table</b>
 
@@ -333,7 +334,9 @@ For example: enumerate sub-keys of <font face="Courier New">"HKLM\SYSTEM\Control
 
 Take a look at [title section](#registry-detection-methods) to get the list of used functions. Please note that case is irrelevant for these checks: it may be either upper or lower.
 
-<details><summary>Code sample</summary>
+<hr class="space">
+
+<b>Code sample</b>
 <p></p>
 
 {% highlight c %}
@@ -396,10 +399,9 @@ int pafish_exists_regkey_value_str(HKEY hKey, char * regkey_s, char * value_s, c
 
 <i>Credits for this code sample: <a href="https://github.com/a0rtega/pafish">pafish project</a> </i>
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Signature recommendations</summary>
+<b>Signature recommendations</b>
 <p></p>
 If the following function contains 2nd argument from the table column <font face="Courier New">`Registry path`</font>:
 <p></p>
@@ -411,8 +413,8 @@ and is followed by the call to the following function with 2nd argument from the
 <li><tt>NtQueryValueKey(..., registry_item, ...)</tt></li> 
 </ul>
 then it's an indication of application trying to use the evasion technique.
-</details>
-<p></p>
+
+<hr class="space">
 
 <b>Detections table</b>
 

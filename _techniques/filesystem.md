@@ -23,9 +23,9 @@ tags: filesystem
 <br />
 [Credits](#credits)
 <br />
-
-
 <br />
+
+
 <h2><a class="a-dummy" name="filesystem-detection-methods">Filesystem detection methods</a></h2>
 The principle of all the filesystem detection methods is the following: there are no such files and directories in usual host; however they exist in particular virtual environments and sandboxes. Virtual environment may be detected if such an artifact is present.
 
@@ -40,7 +40,9 @@ Function used:
 <li><tt>GetFileAttributes  // if attributes are invalid then no file exists</tt></li> 
 </ul>
 
-<details><summary>Code sample</summary>
+<hr class="space">
+
+<b>Code sample</b>
 <p></p>
 
 {% highlight c %}
@@ -82,12 +84,11 @@ VOID vmware_files()
 
 {% endhighlight %}
 
-<i>Credits for this code sample: <a href="https://github.com/LordNoteworthy/al-khaser">al-khaser project</a> </i>
+<i>Credits for this code sample: <a href="https://github.com/LordNoteworthy/al-khaser">al-khaser project</a></i>
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Signature recommendations</summary>
+<b>Signature recommendations</b>
 <p></p>
 If the following function contains its only argument from the table column <font face="Courier New">`Path`</font>:
 <p></p>
@@ -95,8 +96,8 @@ If the following function contains its only argument from the table column <font
 <li><tt>GetFileAttributes(path)</tt></li> 
 </ul>
 then it's an indication of application trying to use the evasion technique.
-</details>
-<p></p>
+
+<hr class="space">
 
 <b>Detections table</b>
 
@@ -299,7 +300,9 @@ Function used:
 <li><tt>GetFileAttributes  // if attributes are invalid then no file exists</tt></li> 
 </ul>
 
-<details><summary>Code sample</summary>
+<hr class="space">
+
+<b>Code sample</b>
 <p></p>
 
 {% highlight c %}
@@ -328,10 +331,9 @@ BOOL vmware_dir()
 
 <i>Credits for this code sample: <a href="https://github.com/LordNoteworthy/al-khaser">al-khaser project</a> </i>
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Signature recommendations</summary>
+<b>Signature recommendations</b>
 <p></p>
 If the following function contains its only argument from the table column <font face="Courier New">`Path`</font>:
 <p></p>
@@ -339,8 +341,8 @@ If the following function contains its only argument from the table column <font
 <li><tt>GetFileAttributes(path)</tt></li> 
 </ul>
 then it's an indication of application trying to use the evasion technique.
-</details>
-<p></p>
+
+<hr class="space">
 
 <b>Detections table</b>
 
@@ -379,7 +381,9 @@ Functions used to get executable path:
 <li><tt>QueryFullProcessImageName</tt></li>
 </ul>
 
-<details><summary>Code sample (function GetModuleFileName)</summary>
+<hr class="space">
+
+<b>Code sample (function GetModuleFileName)</b>
 <p></p>
 
 {% highlight c %}
@@ -411,10 +415,9 @@ int gensandbox_path() {
 
 <i>Credits for this code sample: <a href="https://github.com/a0rtega/pafish">pafish project</a> </i>
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Code sample (function QueryFullProcessImageName)</summary>
+<b>Code sample (function QueryFullProcessImageName)</b>
 <p></p>
 
 {% highlight c %}
@@ -426,14 +429,13 @@ QueryFullProcessImageName(hProcess, 0, buffer, &value);
 printf("EXE Path: %s\n", buffer);
 {% endhighlight %}
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>No signature recommendations</summary>
+<b>No signature recommendations</b>
+<p></p>
 Signature recommendations are not provided as it's hard to say why exactly application wants to get its full path. Function calls may be hooked - and that's it, just general recommendation.
 
-</details>
-<p></p>
+<hr class="space">
 
 <b>Detections table</b>
 
@@ -473,6 +475,8 @@ As this very method is pretty old and is not commonly used, the links to externa
 <li>stub for <a href="http://web.archive.org/web/20101026233743/http://evilcry.netsons.org/OC0/code/EmulationAwareness.c">C code</a></li> 
 </ul>
 
+<hr class="space">
+
 <b>Detections table</b>
 
 <table style="width:62%">
@@ -500,7 +504,9 @@ Function used:
 <li><tt>GetFileAttributes  // if attributes are invalid then no file exists</tt></li> 
 </ul>
 
-<details><summary>Code sample (function GetModuleFileName)</summary>
+<hr class="space">
+
+<b>Code sample (function GetModuleFileName)<b>
 <p></p>
 
 {% highlight c %}
@@ -553,10 +559,9 @@ int gensandbox_common_names() {
 
 <i>Credits for this code sample: <a href="https://github.com/a0rtega/pafish">pafish project</a></i>
 
-</details>
-<p></p>
+<hr class="space">
 
-<details><summary>Signature recommendations</summary>
+<b>Signature recommendations</b>
 <p></p>
 If the following function contains its only argument from the table column <font face="Courier New">`Path`</font>:
 <p></p>
@@ -564,8 +569,8 @@ If the following function contains its only argument from the table column <font
 <li><tt>GetFileAttributes(path)</tt></li> 
 </ul>
 then it's an indication of application trying to use the evasion technique.
-</details>
-<p></p>
+
+<hr class="space">
 
 <b>Detections table</b>
 
