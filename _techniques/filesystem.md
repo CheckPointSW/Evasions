@@ -523,13 +523,13 @@ int pafish_exists_file(char * filename) {
         void *old = NULL;
         // Disable redirection immediately prior to calling GetFileAttributes.
         if (pafish_disable_wow64_fs_redirection(&old) ) {
-        res = GetFileAttributes(filename);
-        // Ignoring MSDN recommendation of exiting if this call fails.
-        pafish_revert_wow64_fs_redirection(old);
+            res = GetFileAttributes(filename);
+            // Ignoring MSDN recommendation of exiting if this call fails.
+            pafish_revert_wow64_fs_redirection(old);
         }
     }
     else {
-    res = GetFileAttributes(filename);
+        res = GetFileAttributes(filename);
     }
     return (res != INVALID_FILE_ATTRIBUTES) ? TRUE : FALSE;
 }
