@@ -5,19 +5,6 @@ categories: evasions
 tags: generic-os-queries
 ---
 
-<style>
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  font-family: Courier New, Verdana, Tahoma, Fixedsys;
-  font-size: 13px;
-}
-th, td {
-  padding: 3px;
-  text-align: left;    
-}
-</style>
-
 <h1>Contents</h1>
 
 [Generic OS queries](#generic-os-queries)

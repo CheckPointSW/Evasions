@@ -6,20 +6,6 @@ categories: evasions
 tags: registry
 ---
 
-<style>
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  font-family: Courier New, Verdana, Tahoma, Fixedsys;
-  font-size: 13px;
-}
-th, td {
-  padding: 3px;
-  text-align: left;    
-}
-</style>
-
-
 <h1>Contents</h1>
 
 [Registry detection methods](#registry-detection-methods)
@@ -432,7 +418,7 @@ then it's an indication of application trying to use the evasion technique.
 
 <table style="width:100%">
   <tr>
-  	<td colspan="4">Check if the following registry values contain the following strings (not necessarily exactly equal to):</td>
+  	<td colspan="4">Check if the following registry values contain the following strings (case insensitive):</td>
   </tr>
   <tr>
   	<th style="text-align:center">Detect</th>

@@ -5,19 +5,6 @@ categories: evasions
 tags: filesystem
 ---
 
-<style>
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  font-family: Courier New, Verdana, Tahoma, Fixedsys;
-  font-size: 13px;
-}
-th, td {
-  padding: 3px;
-  text-align: left;    
-}
-</style>
-
 <h1>Contents</h1>
 
 [Filesystem detection methods](#filesystem-detection-methods)

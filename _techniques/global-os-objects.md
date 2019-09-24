@@ -5,19 +5,6 @@ categories: evasions
 tags: filesystem vmware virtualbox
 ---
 
-<style>
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  font-family: Courier New, Verdana, Tahoma, Fixedsys;
-  font-size: 13px;
-}
-th, td {
-  padding: 3px;
-  text-align: left;    
-}
-</style>
-
 <h1>Contents</h1>
 
 [Global objects detection methods](#global-objects-detection-methods)
@@ -439,6 +426,7 @@ NTSTATUS NTAPI supEnumSystemObjects(
   <tr>
   	<th style="text-align:center">Detect</th>
   	<th style="text-align:center">Path</th>
+    <th style="text-align:center">Object</th>
   </tr>
   <tr>
   	<th rowspan="1">Hyper-V</th>
