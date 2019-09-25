@@ -1,5 +1,11 @@
 # Evasions
 
+### Words of gratitude
+
+This encyclopedia wouldn't be possible without invaluable assistance of [@a14xt][a14xt].
+
+### Description
+
 As malicious threats evolve, the necessity in automated solutions to analyze such threats emerges. It's a very common case when malware samples are executed in some kind of virtualized environment.
 
 These environments differ from usual host systems by a huge amount of artifacts: non-common files, registry keys, system objects, etc. By examining such artifacts malware samples are able to say if they are run in a virtualized environment. Depending on the answer to this question, malware will continue its usual execution thus giving the researchers an opportunity to monitor its behavior - or will behave itself in an unexpected way and reveal nothing about its behavior. 
@@ -29,6 +35,7 @@ So check out all the repositories, browse through evasions encyclopedia and enjo
 Raman Ladutska
 
 
+[a14xt]: <https://twitter.com/a14xt>
 [al-khaser]: <https://github.com/LordNoteworthy/al-khaser>
 [pafish]: <https://github.com/a0rtega/pafish>
 [vmde]: <https://github.com/hfiref0x/VMDE>

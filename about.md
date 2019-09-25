@@ -4,6 +4,12 @@ title: "About evasion techniques"
 permalink: /about/
 ---
 
+<h2>Words of gratitude</h2>
+
+This encyclopedia wouldn't be possible without invaluable assistance of <a href="https://twitter.com/a14xt">@a14xt</a>.
+
+<h2>Description</h2>
+
 As malicious threats evolve, the necessity in automated solutions to analyze such threats emerges. It's a very common case when malware samples are executed in some kind of virtualized environment.
 
 These environments differ from usual host systems by a huge amount of artifacts: non-common files, registry keys, system objects, etc. By examining such artifacts malware samples are able to say if they are run in a virtualized environment. Depending on the answer to this question, malware will continue its usual execution thus giving the researchers an opportunity to monitor its behavior - or will behave itself in an unexpected way and reveal nothing about its behavior. 
