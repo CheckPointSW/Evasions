@@ -593,9 +593,9 @@ bool Generic::CheckSystemUptime() const {
     return GetTickCount() < uptime;
 }
 
-<i>Code sample is taken from <a href="https://github.com/CheckPointSW/InviZzzible">InviZzzible tool</a> </i>
-
 {% endhighlight %}
+
+<i>Code sample is taken from <a href="https://github.com/CheckPointSW/InviZzzible">InviZzzible tool</a></i>
 
 <hr class="space">
 
