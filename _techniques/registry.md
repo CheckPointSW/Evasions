@@ -330,7 +330,7 @@ In particular cases malware may enumerate sub-keys and check if a name of the su
 For example: enumerate sub-keys of <font face="Courier New">"HKLM\SYSTEM\ControlSet001\Services\"</font> and search for <font face="Courier New">"VBox"</font> string.
 
 <br />
-<h3><a class="a-dummy" name="check-if-specific-directories-present">2. Check if particular registry keys contain specified strings</a></h3>
+<h3><a class="a-dummy" name="check-if-keys-contain-strings">2. Check if particular registry keys contain specified strings</a></h3>
 
 Take a look at [title section](#registry-detection-methods) to get the list of used functions. Please note that case is irrelevant for these checks: it may be either upper or lower.
 
