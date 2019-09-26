@@ -4,6 +4,10 @@
 
 This encyclopedia wouldn't be possible without invaluable assistance of [@a14xt][a14xt].
 
+### Site
+
+Compiled encyclopedia resides here: https://evasions.checkpoint.com.
+
 ### Description
 
 As malicious threats evolve, the necessity in automated solutions to analyze such threats emerges. It's a very common case when malware samples are executed in some kind of virtualized environment.
