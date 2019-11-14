@@ -600,7 +600,7 @@ Hook target functions and return appropriate results if indicators (files from t
 <br />
 <h3><a class="a-dummy" name="credits">Credits</a></h3>
 
-Credits go to open-source projects from where code sampes were taken:
+Credits go to open-source projects from where code samples were taken:
 <ul>
 <li>al-khaser project on <a href="https://github.com/LordNoteworthy/al-khaser">github</a></li>
 <li>pafish project on <a href="https://github.com/a0rtega/pafish">github</a></li>

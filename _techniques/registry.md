@@ -739,7 +739,7 @@ Hook target functions and return appropriate results if indicators (registry str
 <br />
 <h3><a class="a-dummy" name="credits">Credits</a></h3>
 
-Credits go to open-source project from where code sampes were taken: 
+Credits go to open-source project from where code samples were taken: 
 <ul>
 <li>pafish project on <a href="https://github.com/a0rtega/pafish">github</a></li>
 </ul>

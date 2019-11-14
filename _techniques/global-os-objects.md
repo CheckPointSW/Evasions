@@ -623,7 +623,7 @@ Hook target functions and return appropriate results if indicators (objects from
 <br />
 <h3><a class="a-dummy" name="credits">Credits</a></h3>
 
-Credits go to open-source project from where code sampes were taken: 
+Credits go to open-source project from where code samples were taken: 
 <ul>
 <li>VMDE project on <a href="https://github.com/hfiref0x/VMDE">github</a></li>
 </ul>
