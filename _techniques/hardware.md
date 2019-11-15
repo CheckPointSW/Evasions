@@ -190,7 +190,7 @@ bool GetHDDVendorId(std::string& outVendorId) {
 <br />
 <h3><a class="a-dummy" name="check-if-audio-device-is-absent">3. Check if audio device is absent</a></h3>
 
-This technique was extracted from TeslaCrypt malware sample and is described <a href="https://github.com/a0rtega/pafish/issues/51">by this link</a>.
+This technique was extracted from TeslaCrypt malware sample and was described <a href="https://www.joesecurity.org/blog/6933341622592617830">in this Joe Security blog post</a>.
 
 <hr class="space">
 
@@ -199,58 +199,55 @@ This technique was extracted from TeslaCrypt malware sample and is described <a 
 
 {% highlight c %}
 
-const wchar_t *filterName = L"random_name";
+void AudioEvasion() {
+  PCWSTR wszfilterName = L"audio_device_random_name";
 
-HRESULT hr = CoInitialize(NULL);
-if (FAILED(hr))
+  if (FAILED(CoInitialize(NULL)))
     return;
 
-IGraphBuilder *pGraph;
-hr = CoCreateInstance(CLSID_FilterGraph, NULL, CLSCTX_INPROC_SERVER, IID_IGraphBuilder, (void**)& pGraph);
-if (FAILED(hr))
+  IGraphBuilder *pGraph = nullptr;
+  if (FAILED(CoCreateInstance(CLSID_FilterGraph, NULL, CLSCTX_INPROC_SERVER, IID_IGraphBuilder, (void**)&pGraph)))
     return;
 
-if (E_POINTER != pGraph->AddFilter(NULL, filterName))
+  if (E_POINTER != pGraph->AddFilter(NULL, wszfilterName))
     ExitProcess(-1);
 
-IBaseFilter *pBaseFilter;
-hr = CoCreateInstance(CLSID_AudioRender, NULL, CLSCTX_INPROC_SERVER, IID_IBaseFilter, (void**)& pBaseFilter);
-if (FAILED(hr))
-    return;
+  IBaseFilter *pBaseFilter = nullptr;
+  CoCreateInstance(CLSID_AudioRender, NULL, CLSCTX_INPROC_SERVER, IID_IBaseFilter, (void**)&pBaseFilter);
+  
+  pGraph->AddFilter(pBaseFilter, wszfilterName);
 
-pGraph->AddFilter(pBaseFilter, filterName);
-
-IBaseFilter *pBaseFilter2;
-pGraph->FindFilterByName(filterName, &pBaseFilter2);
-if (NULL == pBaseFilter2)
-    ExitProcess(-1);
-
-FILTER_INFO info = { 0 };
-pBaseFilter2->QueryFilterInfo(&info);
-if (0 != wcscmp(info.achName, filterName))
-    return;
-
-IReferenceClock *pClock;
-if (0 != pBaseFilter2->GetSyncSource(&pClock))
-    return;
-
-if (0 != pClock)
-    return;
-
-CLSID clsID;
-pBaseFilter2->GetClassID(&clsID);
-if (clsID.Data1 == 0)
+  IBaseFilter *pBaseFilter2 = nullptr;
+  pGraph->FindFilterByName(wszfilterName, &pBaseFilter2);
+  if (nullptr == pBaseFilter2)
     ExitProcess(1);
 
-if (NULL == pBaseFilter2)
+  FILTER_INFO info = { 0 };
+  pBaseFilter2->QueryFilterInfo(&info);
+  if (0 != wcscmp(info.achName, wszfilterName))
+    return;
+
+  IReferenceClock *pClock = nullptr;
+  if (0 != pBaseFilter2->GetSyncSource(&pClock))
+    return;
+  if (0 != pClock)
+    return;
+
+  CLSID clsID = { 0 };
+  pBaseFilter2->GetClassID(&clsID);
+  if (clsID.Data1 == 0)
+    ExitProcess(1);
+
+  if (nullptr == pBaseFilter2)
     ExitProcess(-1);
 
-IEnumPins *pEnum = NULL;
-if (0 != pBaseFilter2->EnumPins(&pEnum))
+  IEnumPins *pEnum = nullptr;
+  if (0 != pBaseFilter2->EnumPins(&pEnum))
     ExitProcess(-1);
 
-if (0 == pBaseFilter2->AddRef())
+  if (0 == pBaseFilter2->AddRef())
     ExitProcess(-1);
+}
 
 {% endhighlight %}
 
