@@ -114,8 +114,8 @@ To track process behaviour, the CuckooMon/Cuckoo Monitor module hooks relevant f
 <hr class="space">
 
 <div style="text-align: center; margin: auto">
-  <img src="{{site.baseurl}}/assets/images/unbalanced_stack_unhooked.png" height="300px">
-  <img src="{{site.baseurl}}/assets/images/unbalanced_stack_hooked.png" height="300px"><br />
+  <img src="{{site.baseurl}}/assets/images/unbalanced_stack_unhook.png" height="300px">
+  <img src="{{site.baseurl}}/assets/images/unbalanced_stack_hook.png" height="300px"><br />
   <i>Stack on non-hooked and on hooked function call.</i>
 </div>
 
