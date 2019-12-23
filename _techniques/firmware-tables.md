@@ -24,6 +24,8 @@ tags: firmware-tables
 <br />
   [Countermeasures](#countermeasures)
 <br />
+  [Credits](#credits)
+<br />
 <br />
 
 <hr class="space">
@@ -73,9 +75,10 @@ Retrieved firmware table is scanned for the presence of particular strings.
 {% highlight c %}
 
 // First, SYSTEM_FIRMWARE_TABLE_INFORMATION object is initialized in the following way:
-SYSTEM_FIRMWARE_TABLE_INFORMATION sfti;
+SYSTEM_FIRMWARE_TABLE_INFORMATION *sfti = 
+    (PSYSTEM_FIRMWARE_TABLE_INFORMATION)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, Length);
 sfti->Action = SystemFirmwareTable_Get;  // 1
-sfti->ProviderSignature = ‘FIRM’;
+sfti->ProviderSignature = 'FIRM';
 sfti->TableID = 0xC0000;
 sfti->TableBufferLength = Length;
 
@@ -87,6 +90,8 @@ NtQuerySystemInformation(
     Length,
     &Length);
 {% endhighlight %}
+
+<i>Credits for this code sample: <a href="https://github.com/hfiref0x/VMDE">VMDE project</a> </i>
 
 <hr class="space">
 
@@ -197,9 +202,10 @@ Retrieved firmware table is scanned for the presence of particular strings.
 {% highlight c %}
 
 // SYSTEM_FIRMWARE_TABLE_INFORMATION object is initialized in the following way:
-SYSTEM_FIRMWARE_TABLE_INFORMATION sfti;
+SYSTEM_FIRMWARE_TABLE_INFORMATION *sfti = 
+    (PSYSTEM_FIRMWARE_TABLE_INFORMATION)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, Length);
 sfti->Action = SystemFirmwareTable_Get; // 1
-sfti->ProviderSignature = ‘RSMB’;
+sfti->ProviderSignature = 'RSMB';
 sfti->TableID = 0;
 sfti->TableBufferLength = Length;
 
@@ -211,6 +217,8 @@ NtQuerySystemInformation(
     Length,
     &Length);
 {% endhighlight %}
+
+<i>Credits for this code sample: <a href="https://github.com/hfiref0x/VMDE">VMDE project</a> </i>
 
 <hr class="space">
 
@@ -314,4 +322,12 @@ then it's an indication of application trying to use this evasion technique.
 <li>On Vista+ OS hook <tt>NtQuerySystemInformation</tt> for retrieving <tt>SystemFirmwareTableInformation</tt> class and parse <tt>SFTI</tt> structure for provided field values.</li> 
 </ul>
 
+<br />
+<h3><a class="a-dummy" name="credits">Credits</a></h3>
 
+Credits go to open-source project from where code samples were taken: 
+<ul>
+<li>VMDE project on <a href="https://github.com/hfiref0x/VMDE">github</a></li>
+</ul>
+
+Though Check Point tool InviZzzible has them all implemented, due to modular structure of the code it would require more space to show a code sample from this tool for the same purposes. That's why we've decided to use other great open-source projects for examples throughout the encyclopedia.
