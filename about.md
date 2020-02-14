@@ -16,7 +16,7 @@ These environments differ from usual host systems by a huge amount of artifacts:
 
 If the latter was the case, we say that malware has successfully applied evasion technique, or simply evasion.
 
-In this encyclopedia we have attempted to gather all the known ways to detect virtualized environment grouping them into big categories. Some categories are inactive on main page: it means that content will be added later.
+In this encyclopedia we have attempted to gather all the known ways to detect virtualized environment grouping them into big categories. Some categories are inactive on main page: it means that content will be added later. If it isn't stated explicitly which operating system is described, Windows is meant by default.
 
 Within each category the reader will find the following information:
 <ul>
