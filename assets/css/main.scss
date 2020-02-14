@@ -69,12 +69,16 @@ $on-laptop:        800px;
 }
 
 .footer-content a:hover {
-  color: #ffebf2 !important; 
+  color: #ffebf2 !important;
 }
 
 .logo {
   margin-top: 20px;
   font-size: 25pt;
+}
+
+.title {
+  white-space: nowrap;
 }
 
 body{
@@ -369,7 +373,7 @@ input[type='checkbox'] {
   margin-top: 5px !important;
   color: white !important;
   border-bottom: 1px solid #ffffff !important;
-  box-shadow: 0 1px 0 0 #f48fb1 !important;    
+  box-shadow: 0 1px 0 0 #f48fb1 !important;
   background-color: transparent !important;
 }
 
@@ -409,14 +413,14 @@ input[type='checkbox'] {
 }
 
 .btn-bleft {
-  margin: 0 5px; 
+  margin: 0 5px;
 }
 
 .btn-expand {
   background-color: #fd83ac !important;
   color: white !important;
   border: 0px;
-  margin-left: 25px; 
+  margin-left: 25px;
 }
 
 
@@ -490,7 +494,7 @@ table, th, td {
 }
 th, td {
   padding: 3px;
-  text-align: left;    
+  text-align: left;
 }
 
 pre {
