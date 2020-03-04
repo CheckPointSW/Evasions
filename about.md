@@ -7,8 +7,10 @@ permalink: /about/
 <h2>Words of gratitude</h2>
 
 This encyclopedia wouldn't be possible without invaluable assistance of the following Check Point researchers:
+<ul>
 <li>Aliaksandr Trafimchuk (<i class="fa fa-twitter fa-lg" style="color:#1DA1F2"></i> <a href="https://twitter.com/a14xt">@a14xt</a>)</li>
 <li>Alexey Bukhteyev</li>
+</ul>
 
 <h2>Description</h2>
 
