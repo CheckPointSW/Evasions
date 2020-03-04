@@ -6,7 +6,9 @@ permalink: /about/
 
 <h2>Words of gratitude</h2>
 
-This encyclopedia wouldn't be possible without invaluable assistance of <a href="https://twitter.com/a14xt">@a14xt</a>.
+This encyclopedia wouldn't be possible without invaluable assistance of the following Check Point researchers:
+<li>Aliaksandr Trafimchuk (<i class="fa fa-twitter fa-lg" style="color:#1DA1F2"></i> <a href="https://twitter.com/a14xt">@a14xt</a>)</li>
+<li>Alexey Bukhteyev</li>
 
 <h2>Description</h2>
 
@@ -41,6 +43,6 @@ If you want to contribute to this encyclopedia, you're more than welcome to crea
 So check out all the repositories, browse through evasions encyclopedia and enjoy the journey!
 
 <br />
-Raman Ladutska
+Raman Ladutska (<i class="fa fa-twitter fa-lg" style="color:#1DA1F2"></i> <a href="https://twitter.com/DaCuriousBro">@DaCuriousBro</a>)
 <br />
 <br />

@@ -2,7 +2,9 @@
 
 ### Words of gratitude
 
-This encyclopedia wouldn't be possible without invaluable assistance of [@a14xt][a14xt].
+This encyclopedia wouldn't be possible without invaluable assistance of the following Check Point researchers:
+* Aliaksandr Trafimchuk ([@a14xt][a14xt])
+* Alexey Bukhteyev
 
 ### Site
 
@@ -36,7 +38,7 @@ If you want to contribute to this encyclopedia, you're more than welcome to crea
 
 So check out all the repositories, browse through evasions encyclopedia and enjoy the journey!
 
-Raman Ladutska
+Raman Ladutska ([@DaCuriousBro][DaCuriousBro])
 
 
 [a14xt]: <https://twitter.com/a14xt>
@@ -44,3 +46,4 @@ Raman Ladutska
 [pafish]: <https://github.com/a0rtega/pafish>
 [vmde]: <https://github.com/hfiref0x/VMDE>
 [invizzzible]: <https://github.com/CheckPointSW/InviZzzible>
+[DaCuriousBro]: <https://twitter.com/DaCuriousBro>
