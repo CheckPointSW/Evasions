@@ -18,6 +18,8 @@ tags: hardware
 <br />
   [4. Check if CPU temperature information if available](#check-if-cpu-temperature-information-is-available)
 <br />
+  [5. Check physical display adapter for IDirect3D9 interface](#check-directx-adapter)
+<br />
   [Signature recommendations](#signature-recommendations)
 <br />
   [Countermeasures](#countermeasures-sandboxie)
@@ -268,6 +270,125 @@ wmic /namespace:\\root\WMI path MSAcpi_ThermalZoneTemperature get CurrentTempera
 {% endhighlight %}
 
 <br />
+<h3><a class="a-dummy" name="check-directx-adapter">5. Check physical display adapter for IDirect3D9 interface</a></h3>
+
+This method checks physical display adapters present in the system when the IDirect3D9 interface was instantiated. It works on all Windows versions starting from Windows XP.
+
+Functions used:
+<ul>
+<li><tt>Direct3DCreate9</tt> - called from <font face="Courier New">`d3d9.dll`</font> library</li>
+<li><tt>GetAdapterIdentifier</tt> - called via <font face="Courier New">IDirect3D9</font> interface</li> 
+</ul>
+
+<hr class="space">
+
+<b>Code sample</b>
+<p></p>
+
+{% highlight c %}
+
+#include <d3d9.h>
+
+// https://github.com/qt/qtbase/blob/dev/src/plugins/platforms/windows/qwindowsopengltester.cpp#L124
+
+void detect() {
+    typedef IDirect3D9* (WINAPI* PtrDirect3DCreate9)(UINT);
+
+    HMODULE d3d9lib = ::LoadLibraryA("d3d9");
+    if (!d3d9lib)
+        return;
+
+    PtrDirect3DCreate9 direct3DCreate9 = (PtrDirect3DCreate9)GetProcAddress(d3d9lib, "Direct3DCreate9");
+    if (!direct3DCreate9)
+        return;
+
+    IDirect3D9* direct3D9 = direct3DCreate9(D3D_SDK_VERSION);
+    if (!direct3D9)
+        return;
+
+    D3DADAPTER_IDENTIFIER9 adapterIdentifier;
+    const HRESULT hr = direct3D9->GetAdapterIdentifier(0, 0, &adapterIdentifier);
+    direct3D9->Release();
+
+    if (SUCCEEDED(hr)) {
+        printf("VendorId:    0x%x\n", adapterIdentifier.VendorId);
+        printf("DeviceId:    0x%x\n", adapterIdentifier.DeviceId);
+        printf("Driver:      %s\n", adapterIdentifier.Driver);
+        printf("Description: %s\n", adapterIdentifier.Description);
+    }
+}
+
+{% endhighlight %}
+
+<i>Credits for this code sample go to <a href="https://gist.github.com/elsamuko/d3049d52ca235112c99ac3ee30282846">elsamuko</a> who pointed it out</i>.
+
+<hr class="space">
+
+Example of output on a usual host machine is provided below:
+
+{% highlight cm %}
+
+VendorId:    0x10de
+DeviceId:    0x103c
+Driver:      nvldumdx.dll
+Description: NVIDIA Quadro K5200
+
+{% endhighlight %}
+
+And here is an example of output on a virtual machine (VMware):
+
+{% highlight cm %}
+
+VendorId:    0x15ad
+DeviceId:    0x405
+Driver:      vm3dum64_loader.dll
+Description: VMware SVGA 3D
+
+{% endhighlight %}
+
+Examined fields are named after the corresponding fields of <font face="Courier New">D3DADAPTER_IDENTIFIER9</font> structure. Malware can compare values in these fields to the ones which are known to be present inside the virtual machine and if match is found, then it draws the conclusion that it’s run under virtual machine.
+
+<b>Detections table</b>
+
+<table style="width:100%">
+  <tr>
+  	<td colspan="4">Check if the following values are present in the fields of D3DADAPTER_IDENTIFIER9 structure:</td>
+  </tr>
+  <tr>
+  	<th style="text-align:center">Detect</th>
+  	<th style="text-align:center">Structure field</th>
+    <th style="text-align:center">Value</th>
+    <th style="text-align:center">Comment</th>
+  </tr>
+  <tr>
+  	<th rowspan="5">VMware</th>
+  	<td>VendorId</td>
+    <td>0x15AD</td>
+    <td></td>
+  </tr>
+  <tr>
+  	<td>DeviceId</td>
+    <td>0x405</td>
+    <td>Only when used in combination with VendorId related to VMware (0x15AD)</td>
+  </tr>
+  <tr>
+  	<td>Driver</td>
+    <td>vm3dum.dll</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Driver</td>
+  	<td>vm3dum64_loader.dll</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Description</td>
+  	<td>VMware SVGA 3D</td>
+    <td></td>
+  </tr>
+</table>
+
+<br />
 <h3><a class="a-dummy" name="signature-recommendations">Signature recommendations</a></h3>
 
 <i>Signature recommendations are general for each technique: hook the function used and track if it is called. It's pretty hard to tell why application wants to get HDD name, for example. It doesn't necessarily mean applying evasion technique. So the best what can be done in this situation is intercepting target functions and tracking their calls.</i>
@@ -278,6 +399,7 @@ wmic /namespace:\\root\WMI path MSAcpi_ThermalZoneTemperature get CurrentTempera
 <ul>
 <li><tt>versus HDD checks:</tt> rename HDD so that it's not detected by specific strings;</li> 
 <li><tt>versus audio device check:</tt> add audio device;</li> 
-<li><tt>versus CPU temperature check:</tt> add stub to hypervisor to output some meaningful information.</li> 
+<li><tt>versus CPU temperature check:</tt> add stub to hypervisor to output some meaningful information;</li>
+<li><tt>versus physical display adapter check:</tt> set up hook on a function <font face="Courier New">GetAdapterIdentifier</font> from <font face="Courier New">d3d9.dll</font>, check if the queried adapter is related to DirectX and replace return values.</li> 
 </ul>
 
