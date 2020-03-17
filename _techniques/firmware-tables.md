@@ -11,16 +11,16 @@ tags: firmware-tables
 [Firmware tables detection methods](#firmware-tables-detection-methods)
 <br />
   [1. Check if specific strings are present in Raw Firmware Table](#check-specific-strings-in-raw-firmware-table)
- <br />
-  [1.1. Windows XP](#check-specific-strings-in-raw-firmware-table-xp)
 <br />
-  [1.2. Windows Vista+](#check-specific-strings-in-raw-firmware-table-vista)
+  [1.1. Windows Vista+](#check-specific-strings-in-raw-firmware-table-vista)
+<br />
+  [1.2. Windows XP](#check-specific-strings-in-raw-firmware-table-xp)
 <br />
   [2. Check if specific strings are present in Raw SMBIOS Firmware Table](#check-specific-strings-in-raw-smbios-firmware-table)
 <br />
-  [2.1. Windows XP](#check-specific-strings-in-raw-smbios-firmware-table-xp)
+  [2.1. Windows Vista+](#check-specific-strings-in-raw-smbios-firmware-table-vista)
 <br />
-  [2.2. Windows Vista+](#check-specific-strings-in-raw-smbios-firmware-table-vista)
+  [2.2. Windows XP](#check-specific-strings-in-raw-smbios-firmware-table-xp)
 <br />
   [Countermeasures](#countermeasures)
 <br />
@@ -67,7 +67,7 @@ Retrieved firmware table is scanned for the presence of particular strings.
 <i>Depending on Windows version different functions are used for this check. See code samples below.</i>
 
 <br />
-<h4><a class="a-dummy" name="check-specific-strings-in-raw-firmware-table-xp">1.1. Windows XP</a></h4>
+<h4><a class="a-dummy" name="check-specific-strings-in-raw-firmware-table-vista">1.1. Windows Vista+</a></h4>
 
 <b>Code sample</b>
 <p></p>
@@ -111,7 +111,7 @@ then it's an indication of application trying to use this evasion technique.
 <hr class="space">
 
 <br />
-<h4><a class="a-dummy" name="check-specific-strings-in-raw-firmware-table-vista">1.2. Windows Vista+</a></h4>
+<h4><a class="a-dummy" name="check-specific-strings-in-raw-firmware-table-xp">1.2. Windows XP</a></h4>
 
 <b>Code sample</b>
 <p></p>
@@ -194,7 +194,7 @@ Retrieved firmware table is scanned for the presence of particular strings.
 <i>Depending on Windows version different functions are used for this check. See code samples below.</i>
 
 <br />
-<h4><a class="a-dummy" name="check-specific-strings-in-raw-smbios-firmware-table-xp">2.1. Windows XP</a></h4>
+<h4><a class="a-dummy" name="check-specific-strings-in-raw-smbios-firmware-table-vista">2.1. Windows Vista+</a></h4>
 
 <b>Code sample</b>
 <p></p>
@@ -238,7 +238,7 @@ then it's an indication of application trying to use this evasion technique.
 <hr class="space">
 
 <br />
-<h4><a class="a-dummy" name="check-specific-strings-in-raw-smbios-firmware-table-vista">2.2. Windows Vista+</a></h4>
+<h4><a class="a-dummy" name="check-specific-strings-in-raw-smbios-firmware-table-xp">2.2. Windows XP</a></h4>
 
 <b>Code sample</b>
 <p></p>
