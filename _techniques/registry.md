@@ -587,7 +587,7 @@ then it's an indication of application trying to use the evasion technique.
   	<td>VIRTUALBOX</td>
   </tr>
   <tr>
-  	<th rowspan="27">VMware</th>
+  	<th rowspan="28">VMware</th>
   	<td>HKLM\HARDWARE\DEVICEMAP\Scsi\Scsi Port 0\Scsi Bus 0\Target Id 0\Logical Unit Id 0</td>
   	<td>Identifier</td>
   	<td>VMWARE</td>
@@ -700,6 +700,11 @@ then it's an indication of application trying to use the evasion technique.
   <tr>
   	<td>HKLM\SYSTEM\ControlSet001\Control\Class\{4D36E968-E325-11CE-BFC1-08002BE10318}\0000</td>
   	<td>ProviderName</td>
+  	<td>VMware*</td>
+  </tr>
+  <tr>
+  	<td>HKLM\SYSTEM\ControlSet001\Control\Class\{4D36E968-E325-11CE-BFC1-08002BE10318}\0000\Settings</td>
+  	<td>Device Description</td>
   	<td>VMware*</td>
   </tr>
   <tr>
