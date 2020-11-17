@@ -37,7 +37,7 @@ Techniques in this group use specific processor instructions to either get parti
 
 <br />
 <h3><a class="a-dummy" name="check-vendor-id-via-cpuid">1. Check vendor ID string via CPUID instruction</a></h3>
-The <a href="https://x86.renejeschke.de/html/file_module_x86_id_45.html">CPUID</a> instruction is an instruction that returns process identification and feature information to <tt>EBX, ECX, EDX</tt>. The information received to these registers can be used to identify a vendor.
+The <a href="https://x86.renejeschke.de/html/file_module_x86_id_45.html">CPUID</a> instruction is an instruction that returns processor identification and feature information to <tt>EBX, ECX, EDX</tt>. The information received to these registers can be used to identify a vendor.
 
 <hr class="space">
 
