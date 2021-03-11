@@ -53,7 +53,7 @@ BOOL is_FileExists(TCHAR* szPath)
 }
 
 /*
-Check against some of VMWare blacklisted files
+Check against some of VMware blacklisted files
 */
 VOID vmware_files()
 {
@@ -263,7 +263,7 @@ then it's an indication of application trying to use the evasion technique.
   	<td></td>
   </tr>
   <tr>
-  	<th rowspan="6">VMWare</th>
+  	<th rowspan="6">VMware</th>
   	<td>c:\windows\system32\drivers\vmmouse.sys</td>
   	<td>Pointing PS/2 Device Driver</td>
   </tr>
@@ -313,13 +313,13 @@ BOOL is_DirectoryExists(TCHAR* szPath)
 }
 
 /*
-Check against VMWare blacklisted directory
+Check against VMware blacklisted directory
 */
 BOOL vmware_dir()
 {
     TCHAR szProgramFile[MAX_PATH];
     TCHAR szPath[MAX_PATH] = _T("");
-    TCHAR szTarget[MAX_PATH] = _T("VMWare\\");
+    TCHAR szTarget[MAX_PATH] = _T("VMware\\");
     if (IsWoW64())
         ExpandEnvironmentStrings(_T("%ProgramW6432%"), szProgramFile, ARRAYSIZE(szProgramFile));
     else
@@ -363,8 +363,8 @@ then it's an indication of application trying to use the evasion technique.
   	<td>%PROGRAMFILES%\oracle\virtualbox guest additions\</td>
   </tr>
   <tr>
-  	<th>VMWare</th>
-  	<td>%PROGRAMFILES%\VMWare\</td>
+  	<th>VMware</th>
+  	<td>%PROGRAMFILES%\VMware\</td>
   </tr>
 </table>
 

@@ -9,25 +9,25 @@ tags: generic-os-queries
 
 [Generic OS queries](#generic-os-queries)
 <br />
-  [1. Check if username is specific](#check-if-username-is-specific)
+  [1. Check if the username is specific](#check-if-username-is-specific)
 <br />
-  [2. Check if computer name is specific](#check-if-computer-name-is-specific)
+  [2. Check if the computer name is specific](#check-if-computer-name-is-specific)
 <br />
-  [3. Check if host name is specific](#check-if-host-name-is-specific)
+  [3. Check if the host name is specific](#check-if-host-name-is-specific)
 <br />
-  [4. Check if total RAM is low](#check-if-total-ram-is-low)
+  [4. Check if the total RAM is low](#check-if-total-ram-is-low)
 <br />
-  [5. Check if screen resolution is non-usual for host OS](#check-if-screen-res)
+  [5. Check if the screen resolution is non-usual for host OS](#check-if-screen-res)
 <br />
-  [6. Check if number of processors is low](#check-if-number-of-processors)
+  [6. Check if the number of processors is low](#check-if-number-of-processors)
 <br />
-  [7. Check if quantity of monitors is small](#check-if-quantity-of-monitors)
+  [7. Check if the quantity of monitors is small](#check-if-quantity-of-monitors)
 <br />
-  [8. Check if hard disk drive size and free space are small](#check-if-hard-disk)
+  [8. Check if the hard disk drive size and free space are small](#check-if-hard-disk)
 <br />
-  [9. Check if system-uptime-is-small](#check-if-system-uptime)
+  [9. Check if the system uptime is small](#check-if-system-uptime)
 <br />
-  [10. Check if os was boot from virtual hard disk (Win8+)](#check-if-os-was-boot-from-virtual-disk)
+  [10. Check if the OS was boot from virtual hard disk (Win8+)](#check-if-os-was-boot-from-virtual-disk)
 <br />
 [Countermeasures](#countermeasures)
 <br />
@@ -48,7 +48,7 @@ While these may be not the most reliable ways to detect virtual environments, th
 
 
 <br />
-<h3><a class="a-dummy" name="check-if-username-is-specific">1. Check if username is specific</a></h3>
+<h3><a class="a-dummy" name="check-if-username-is-specific">1. Check if the username is specific</a></h3>
 
 Please note that checks are not case-sensitive.
 
@@ -168,7 +168,7 @@ Change user name to non-suspicious one.
 
 
 <br />
-<h3><a class="a-dummy" name="check-if-computer-name-is-specific">2. Check if computer name is specific</a></h3>
+<h3><a class="a-dummy" name="check-if-computer-name-is-specific">2. Check if the computer name is specific</a></h3>
 
 Please note that checks are not case-sensitive.
 
@@ -234,7 +234,7 @@ Change computer name to non-suspicious one.
 
 
 <br />
-<h3><a class="a-dummy" name="check-if-host-name-is-specific">3. Check if host name is specific</a></h3>
+<h3><a class="a-dummy" name="check-if-host-name-is-specific">3. Check if the host name is specific</a></h3>
 
 Please note that checks are not case-sensitive.
 
@@ -289,7 +289,7 @@ Change host name to non-suspicious one.
 
 
 <br />
-<h3><a class="a-dummy" name="check-if-total-ram-is-low">4. Check if total RAM is low</a></h3>
+<h3><a class="a-dummy" name="check-if-total-ram-is-low">4. Check if the total RAM is low</a></h3>
 
 Functions used to get executable path:
 <ul>
@@ -331,7 +331,7 @@ Alternatively, patch <font face="Courier New">NumberOfPhysicalPages</font> in <f
 
 
 <br />
-<h3><a class="a-dummy" name="check-if-screen-res">5. Check if screen resolution is non-usual for host OS</a></h3>
+<h3><a class="a-dummy" name="check-if-screen-res">5. Check if the screen resolution is non-usual for host OS</a></h3>
 
 The following set of functions is used:
 <ul>
@@ -362,7 +362,7 @@ Change screen resolution for it to match the resolution of usual host (1600x900,
 
 
 <br />
-<h3><a class="a-dummy" name="check-if-number-of-processors">6. Check if number of processors is low</a></h3>
+<h3><a class="a-dummy" name="check-if-number-of-processors">6. Check if the number of processors is low</a></h3>
 
 Function used:
 <ul>
@@ -449,7 +449,7 @@ As an alternative solution, patch/hook <font face="Courier New">NtCreateThread</
 
 
 <br />
-<h3><a class="a-dummy" name="check-if-quantity-of-monitors">7. Check if quantity of monitors is small</a></h3>
+<h3><a class="a-dummy" name="check-if-quantity-of-monitors">7. Check if the quantity of monitors is small</a></h3>
 
 Functions used:
 <ul>
@@ -492,7 +492,7 @@ Add at least one monitor to virtual environment.
 
 
 <br />
-<h3><a class="a-dummy" name="check-if-hard-disk">8. Check if hard disk drive size and free space are small</a></h3>
+<h3><a class="a-dummy" name="check-if-hard-disk">8. Check if the hard disk drive size and free space are small</a></h3>
 
 Functions used:
 <ul>
@@ -576,11 +576,13 @@ in case if handle points to <font face="Courier New">\\Device\\HarddiskVolumeN</
 
 
 <br />
-<h3><a class="a-dummy" name="check-if-system-uptime">9. Check if system uptime is small</a></h3>
+<h3><a class="a-dummy" name="check-if-system-uptime">9. Check if the system uptime is small</a></h3>
 
 Function used:
 <ul>
 <li><tt>GetTickCount</tt></li>
+<li><tt>GetTickCount64</tt></li>
+<li><tt>NtQuerySystemInformation</tt></li>
 </ul>
 
 <b>Code sample</b>
@@ -597,16 +599,40 @@ bool Generic::CheckSystemUptime() const {
 
 <i>Code sample is taken from <a href="https://github.com/CheckPointSW/InviZzzible">InviZzzible tool</a></i>
 
+<b>Code sample</b>
+{% highlight c %}
+#define MIN_UPTIME_MINUTES 12
+BOOL uptime_check()
+{
+    ULONGLONG uptime_minutes = GetTickCount64() / (60 * 1000);
+    return uptime_minutes < MIN_UPTIME_MINUTES;
+}
+{% endhighlight %}
+<br />
+<b>Code sample</b>
+{% highlight c %}
+BOOL uptime_check2()
+{
+    SYSTEM_TIME_OF_DAY_INFORMATION  SysTimeInfo;
+    ULONGLONG uptime_minutes;
+    NtQuerySystemInformation(SystemTimeOfDayInformation, &SysTimeInfo, sizeof(SysTimeInfo), 0);
+    uptime_minutes = (SysTimeInfo.CurrentTime.QuadPart - SysTimeInfo.BootTime.QuadPart) / (60 * 1000 * 10000);
+    return uptime_minutes < MIN_UPTIME_MINUTES;
+}
+{% endhighlight %}
+
 <hr class="space">
 
 <b>Countermeasures</b>
 <p></p>
 
-Add some value to number of ticks returned from <font face="Courier New">GetTickCount</font> function.
-
+<ul>
+<li>Adjust <tt>KeBootTime</tt> value</li>
+<li>Adjust <tt>SharedUserData->TickCount</tt>, <tt>SharedUserData->TickCoundLowDeprecated</tt> values</li>
+</ul>
 
 <br />
-<h3><a class="a-dummy" name="check-if-os-was-boot-from-virtual-disk">10. Check if os was boot from virtual hard disk (Win8+)</a></h3>
+<h3><a class="a-dummy" name="check-if-os-was-boot-from-virtual-disk">10. Check if the OS was boot from virtual hard disk (Win8+)</a></h3>
 
 Function used:
 <ul>

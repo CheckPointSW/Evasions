@@ -171,7 +171,7 @@ BOOL check_mac_addr(TCHAR* szMac)
     <td>\x08\x00\x27</td>
   </tr>
   <tr>
-    <th rowspan="4">VMWare</th>
+    <th rowspan="4">VMware</th>
     <td>00:05:69</td>
     <td>\x00\x05\x69</td>
   </tr>
@@ -305,7 +305,7 @@ BOOL check_adapter_name(TCHAR* szName)
     <th style="text-align:center">Name</th>
   </tr>
   <tr>
-    <th>VMWare</th>
+    <th>VMware</th>
     <td>Vmware</td>
   </tr>
 </table>

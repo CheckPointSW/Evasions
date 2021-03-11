@@ -95,8 +95,8 @@ SetupDiGetDeviceRegistryProperty(
     <td>VIRTUAL HD</td>
   </tr>
   <tr>
-    <th>VMWare</th>
-    <td>VMWare</td>
+    <th>VMware</th>
+    <td>VMware</td>
   </tr>
 </table>
 
@@ -184,7 +184,7 @@ bool GetHDDVendorId(std::string& outVendorId) {
     <td>VBOX</td>
   </tr>
   <tr>
-    <th>VMWare</th>
+    <th>VMware</th>
     <td>vmware</td>
   </tr>
 </table>

@@ -180,7 +180,7 @@ then it's an indication of application trying to use this evasion technique.
     <td>S3 Corp.</td>
   </tr>
   <tr>
-    <th>VMWare</th>
+    <th>VMware</th>
     <td>VMware</td>
   </tr>
 </table>
@@ -306,7 +306,7 @@ then it's an indication of application trying to use this evasion technique.
     <td>VS2005R2</td>
   </tr>
   <tr>
-    <th rowspan="2">VMWare</th>
+    <th rowspan="2">VMware</th>
     <td>VMware, Inc.</td>
   </tr>
   <tr>

@@ -237,7 +237,7 @@ typedef struct _OBJECT_ATTRIBUTES {
   	<td>\\.\VBoxVideo</td>
   </tr>
   <tr>
-  	<th rowspan="2">VMWare</th>
+  	<th rowspan="2">VMware</th>
   	<td>\\.\HGFS</td>
   </tr>
   <tr>
@@ -489,7 +489,7 @@ NTSTATUS NTAPI supEnumSystemObjects(
   	<td>\Driver</td>
   </tr>
   <tr>
-  	<th rowspan="1">VMWare</th>
+  	<th rowspan="1">VMware</th>
   	<td>vmmemctl</td>
   	<td>\Device</td>
   </tr>

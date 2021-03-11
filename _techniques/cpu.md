@@ -125,7 +125,7 @@ __declspec(naked) void get_cpuid_vendor(char *vendor_id) {
     <td>Microsoft Hv</td>
   </tr>
   <tr>
-    <th>VMWare</th>
+    <th>VMware</th>
     <td>0x40000000</td>
     <td>VMwareVMware</td>
   </tr>

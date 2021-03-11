@@ -127,7 +127,7 @@ bool check_process_is_running(const std::string &proc_name) {
     <td>vmusrvc.exe</td>
   </tr>
   <tr>
-    <th rowspan="6">VMWare</th>
+    <th rowspan="6">VMware</th>
     <td>vmtoolsd.exe</td>
   </tr>
   <tr>

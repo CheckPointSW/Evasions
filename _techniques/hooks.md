@@ -29,9 +29,9 @@ Techniques described here make use of hooks either to detect user presence or as
 
 <br />
 <h3><a class="a-dummy" name="check-whether-hooks-are-set-within-system-functions">1. Check whether hooks are set within system functions</a></h3>
-Malware reads memory at specific addresses to check if the Windows API functions are hooked.
+Malware reads memory at specific addresses to check if Windows API functions are hooked.
 <br />
-This method is based on the fact, that emulation environments are most likely to hook these functions to be able to gather data and statistics during emulation.
+This method is based on the fact, that emulation environments are most likely to hook these functions to be able to gather data and statistics during an emulation.
 
 <hr class="space">
 
@@ -246,5 +246,4 @@ t.join();
 
 Credits go to user <tt>dtm</tt> from  <a href="https://0x00sec.org/">0x00sec.org</a> forum.
 
-Though Check Point tool InviZzzible has them all implemented, due to modular structure of the code it would require more space to show a code sample from this tool for the same purposes. That's why we've decided to use other great open-source projects for examples throughout the encyclopedia.
-
+Due to modular code structure of the Check Point's tool called InviZzzible it would require more space to show a code sample from this tool for the same purposes. That's why we've decided to use other great open-source projects for examples throughout the encyclopedia.
