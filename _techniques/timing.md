@@ -44,6 +44,8 @@ tags: timing
 <br />
   [5. Check the system last boot time using different methods](#check-system-boot-time)
 <br />
+  [6. Call a potentially hooked delay function with invalid arguments](#call-hooked-function-with-invalid-arguments)
+<br />
   [Countermeasures](#countermeasures)
 <br />
 [Credits](#credits)
@@ -234,7 +236,6 @@ Although sleep skipping is already implemented in the Cuckoo sandbox, it is very
 Sleep skipping is disabled after a new thread or process is created to avoid sleep skipping detection.
 However, it can still be easily detected as shown below.
 
-<br />
 <h3><a class="a-dummy" name="sleep-skipping-detection">2. Sleep skipping detection</a></h3>
 Techniques of this type are generally aimed at the Cuckoo monitor sleep skipping feature and other time-manipulation
 techniques that can be used in sandboxes to skip long delays performed by the malware.
@@ -552,6 +553,60 @@ bool check_last_boot_time()
 <li>Adjust the <tt>KeBootTime</tt> value</li>
 <li>Reset the WMI repository or restart the <tt>"winmgmt"</tt> service after the <tt>KeBootTime</tt> adjustment</li>
 </ul>
+
+<br />
+<h3><a class="a-dummy" name="call-hooked-function-with-invalid-arguments">6. Call a potentially hooked delay function with invalid arguments</a></h3>
+The second argument of the <tt>NtDelayExecution</tt> function is a pointer to the delay interval value. In the kernel-mode, 
+the <tt>NtDelayExecution</tt> function validates this pointer and can also return the following values:
+<ul>
+<li><tt>STATUS_ACCESS_VIOLATION</tt> - If the value is not a valid user-mode address</li>
+<li><tt>STATUS_DATATYPE_MISALIGNMENT</tt> - If the address is not aligned (DelayInterval & 3 != 0)</li>
+</ul>
+In a sandbox, the input arguments for <tt>NtDelayExecution</tt> and similar functions might not be handled correctly. 
+If we call <tt>NtDelayExecution</tt> with an unaligned pointer for DelayInterval, normally it returns the 
+<tt>STATUS_DATATYPE_MISALIGNMENT</tt>. However, in a sandbox, the value for DelayInterval may be copied to a new variable 
+without the appropriate checks. In this case, a delay is performed and the returned value will be <tt>STATUS_SUCCESS</tt>. 
+This can be used to detect a sandbox.
+<br /><br />
+<b>Code sample</b>
+{% highlight c %}
+__declspec(align(4)) BYTE aligned_bytes[sizeof(LARGE_INTEGER) * 2];
+DWORD tick_start, time_elapsed_ms;
+DWORD Timeout = 10000; //10 seconds
+PLARGE_INTEGER DelayInterval = (PLARGE_INTEGER)(aligned_bytes + 1); //unaligned
+NTSTATUS status;
+
+DelayInterval->QuadPart = Timeout * (-10000LL);
+tick_start = GetTickCount();
+status = NtDelayExecution(FALSE, DelayInterval);
+time_elapsed_ms = GetTickCount() - tick_start;
+// If the pointer is not aligned the delay should not be performed
+if (time_elapsed_ms > 500 || status != STATUS_DATATYPE_MISALIGNMENT )
+    printf("Sandbox detected\n");
+
+{% endhighlight %}
+On the other hand, if an inaccessible address is set for DelayInterval, the return code should be 
+<tt>STATUS_ACCESS_VIOLATION</tt>. This can be used to detect a sandbox as well.
+<br /><br />
+<b>Code sample</b>
+{% highlight c %}
+if (NtDelayExecution(FALSE, (PLARGE_INTEGER)0) != STATUS_ACCESS_VIOLATION)
+    printf("Sandbox detected");
+{% endhighlight %}
+
+If the <tt>DelayInterval</tt> argument is not verified before it is accessed, this may lead to an exception in the case of 
+using an invalid pointer. For example, the next code leads the Cuckoo monitor to crash.
+<br /><br />
+<b>Code sample</b>
+{% highlight c %}
+NtDelayExecution(FALSE, (PLARGE_INTEGER)0xFFDF0000);
+{% endhighlight %}
+As stated earlier, normally this call should return <tt>STATUS_ACCESS_VIOLATION</tt> without causing an exception.
+
+<b>Countermeasures</b>
+<p></p>
+
+Hooked functions should check arguments and return appropriate error codes if arguments are invalid.
 
 <br />
 <h3><a class="a-dummy" name="countermeasures">Countermeasures</a></h3>

@@ -14,6 +14,8 @@ tags: hooks
 <br />
   [2. Check user clicks via mouse hooks](#check-user-clicks-via-mouse-hooks)
 <br />
+  [3. Check for incorrectly hooked functions](#check-incorrectly-hooked-functions)
+<br />
   [Signature recommendations](#signature-recommendations)
 <br />
   [Countermeasures](#countermeasures)
@@ -230,6 +232,88 @@ t.join();
 {% endhighlight %}
 
 <br />
+<h3><a class="a-dummy" name="check-incorrectly-hooked-functions">3. Check for incorrectly hooked functions</a></h3>
+There are more than 400 Native API functions (or Nt-functions) in <tt>ntdll.dll</tt> that are usually hooked in sandboxes. 
+In such a large list, there is enough space for different kinds of mistakes. We checked the hooked Nt-functions in popular sandboxes 
+and found several issues. On of them is a lack of necessary checks for arguments in a hooked function. This case is
+described our article "<a href="timing.html#call-hooked-function-with-invalid-arguments">Timing: Call a potentially hooked delay function with invalid arguments evasions</a>"
+<br />
+Another issue we found is a discrepancy in the number of arguments in a hooked and an original function. 
+If a function is hooked incorrectly, in kernel mode this may lead an operating system to crash. Incorrect user-mode 
+hooks are not as critical. However, they may lead an analyzed application to crash or can be easily detected.
+For example, let’s look at the <tt>NtLoadKeyEx</tt> function. It was first introduced in Windows Server 2003 and had 
+only 4 arguments. Starting from Windows Vista up to the latest version of Windows 10, it has 8 arguments:
+    
+    ; Exported entry 318. NtLoadKeyEx
+    ; Exported entry 1450. ZwLoadKeyEx
+    ; __stdcall NtLoadKeyEx(x, x, x, x, x, x, x, x)
+    public _NtLoadKeyEx@32
+    
+However, in the Cuckoo monitor, the <tt>NtLoadKeyEx</tt> declaration still has only 
+<a href="https://github.com/cuckoosandbox/monitor/blob/8c419e6216f379e01ea0caa3a71142543e10fc04/sigs/registry_native.rst#ntloadkeyex">4 arguments</a>:
+
+    *  POBJECT_ATTRIBUTES TargetKey
+    *  POBJECT_ATTRIBUTES SourceFile
+    ** ULONG Flags flags
+    ** HANDLE TrustClassKey trust_class_key
+    
+We found this legacy prototype used in other sources as well. For example, 
+<a href="https://github.com/ctxis/capemon/blob/e541d7ccd41d519de4198f7965c5b584d2a66ed6/hooks.h#L710">CAPE monitor</a>
+has the same issue:
+
+{% highlight c %}
+extern HOOKDEF(NTSTATUS, WINAPI, NtLoadKeyEx,
+    __in      POBJECT_ATTRIBUTES TargetKey,
+    __in      POBJECT_ATTRIBUTES SourceFile,
+    __in      ULONG Flags,
+    __in_opt  HANDLE TrustClassKey
+);
+{% endhighlight %}
+
+Therefore, if a sandbox uses any recent Windows OS, this function is hooked incorrectly. After the call to the 
+incorrectly hooked function, the stack pointer value becomes invalid. Therefore, a totally "legitimate" call to the 
+<tt>RegLoadAppKeyW</tt> function, which calls <tt>NtLoadKeyEx</tt>, leads to an exception. This fact can be used to 
+evade Cuckoo and CAPE sandbox with just a single call to the <tt>RegLoadAppKeyW</tt> function.
+
+<b>Code sample</b>
+<p></p>
+{% highlight c %}
+
+RegLoadAppKeyW(L"storage.dat", &hKey, KEY_ALL_ACCESS, 0, 0);
+// If the application is running in a sandbox an exception will occur
+// and the code below will not be executed.
+
+// Some legitimate code that works with hKey to distract attention goes here
+// ...
+RegCloseKey(hKey);
+// Malicious code goes here
+// ...
+
+{% endhighlight %}
+
+Instead of using <tt>RegLoadAppKeyW</tt>, we can call the <tt>NtLoadKeyEx</tt> function directly and check the ESP 
+value after the call.
+
+<b>Code sample</b>
+<p></p>
+{% highlight c %}
+__try
+{
+    _asm mov old_esp, esp
+    NtLoadKeyEx(&TargetKey, &SourceFile, 0, 0, 0, KEY_ALL_ACCESS, &hKey, &ioStatus);
+    _asm mov new_esp, esp
+    _asm mov esp, old_esp
+    if (old_esp != new_esp)
+        printf("Sandbox detected!");
+}
+__except (EXCEPTION_EXECUTE_HANDLER)
+{
+    printf("Sandbox detected!");
+}
+{% endhighlight %}
+
+
+<br />
 <h3><a class="a-dummy" name="signature-recommendations">Signature recommendations</a></h3>
 <i>No signature recommendations are provided for this evasion group as it's hard to make a difference between the code which aims for some evasion technique and the one which is "legally used".</i>
 
@@ -237,8 +321,9 @@ t.join();
 <h3><a class="a-dummy" name="countermeasures">Countermeasures</a></h3>
 
 <ul>
-<li><tt>versus function hook checks:</tt> set kernel mode hooks; second solution is to use stack routing to implement function hooking;</li> 
-<li><tt>versus mouse click checks via hooks:</tt> use mouse movement emulation module.</li> 
+<li><tt>versus function hook checks:</tt> set kernel mode hooks; second solution is to use stack routing to implement function hooking;</li>
+<li><tt>versus mouse click checks via hooks:</tt> use mouse movement emulation module.</li>
+<li><tt>versus incorrect function hooks:</tt> ensure all the hooked function have the same number of arguments as the original functions</li> 
 </ul>
 
 <br />
