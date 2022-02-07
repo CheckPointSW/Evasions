@@ -258,7 +258,7 @@ However, in the Cuckoo monitor, the <tt>NtLoadKeyEx</tt> declaration still has o
     ** HANDLE TrustClassKey trust_class_key
     
 We found this legacy prototype used in other sources as well. For example, 
-<a href="https://github.com/ctxis/capemon/blob/e541d7ccd41d519de4198f7965c5b584d2a66ed6/hooks.h#L710">CAPE monitor</a>
+<a href="https://github.com/kevoreilly/capemon/blob/a3fe72ad9d3f9cd45aa2f5d503a5328ab1f9e442/hooks.h#L710">CAPE monitor</a>
 has the same issue:
 
 {% highlight c %}
