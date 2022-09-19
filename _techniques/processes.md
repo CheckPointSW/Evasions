@@ -18,7 +18,9 @@ tags: processes
 <br />
   [1.3. Check if specific functions are present in specific libraries](#check-if-specific-functions-are-present-in-specific-libraries)
 <br />
-  [1.4. Countermeasures](#countermeasures)
+  [1.4. Check if certain libraries can be loaded and others not](#check-if-certain-libraries-can-be-loaded-and-others-not)
+<br />
+  [1.5. Countermeasures](#countermeasures)
 <br />
   [2. Check if specific artifacts are present in process address space (Sandboxie only)](#check-if-specific-artifacts-are-present-in-process)
 <br />
@@ -347,12 +349,73 @@ then it's an indication of application trying to use this evasion technique.
 </table>
 
 <br />
-<h4><a class="a-dummy" name="countermeasures">1.4. Countermeasures</a></h4>
+<h4><a class="a-dummy" name="check-if-certain-libraries-can-be-loaded-and-others-not">1.4. Check if certain libraries can be loaded and others</a></h4>
+
+Function used:
+<ul>
+  <li><tt>LoadLibraryA/W</tt></li> 
+</ul>
+
+<hr class="space">
+
+This technique relies on the assumption that there are some common system libraries in the usual system that can be loaded – and there are also some fake ones, that should not be really present in a usual system. However, in a sandbox, when trying to load some fake libraries, they may be reported as loaded - which is different from how it should be on a usual host.
+
+In other words, if a system library that is usually present (but not so widely used) in non-emulated machines is not loaded, then the application is likely in a sandbox. And if a fake DLL is reported to be loaded, then it is likely a sandbox, as such DLL will not be loaded in a usual machine.
+
+<b>Code sample</b>
+<p></p>
+
+{% highlight c %}
+
+bool Generic::CheckLoadedDLLs() const {
+    std::vector<std::string> real_dlls = {
+        "kernel32.dll",
+        "networkexplorer.dll",
+        "NlsData0000.dll"
+    };
+    std::vector<std::string> false_dlls = {
+        "NetProjW.dll",
+        "Ghofr.dll",
+        "fg122.dll"
+    };
+    HMODULE lib_inst;
+
+    for (auto &dll : real_dlls) {
+        lib_inst = LoadLibraryA(dll.c_str());
+        if (lib_inst == nullptr) {
+            return true;
+        }
+        FreeLibrary(lib_inst);
+    }
+
+    for (auto &dll : false_dlls) {
+        lib_inst = LoadLibraryA(dll.c_str());
+        if (lib_inst != nullptr) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+{% endhighlight %}
+
+<hr class="space">
+
+<b>Signature recommendations</b>
+<p></p>
+<i>Signature recommendations are not provided as it's hard to say that evasion tehnique is being applied when libraries are just loaded.</i>
+
+<hr class="space">
+
+<br />
+<h4><a class="a-dummy" name="countermeasures">1.5. Countermeasures</a></h4>
 
 <ul>
 <li><tt>for processes:</tt> exclude target processes from enumeration or terminate them;</li> 
 <li><tt>for libraries:</tt> exclude them from <a href="http://www.codereversing.com/blog/archives/265">enumeration lists in PEB</a>;</li> 
-<li><tt>for functions in libraries:</tt> hook appropriate functions and compare their arguments against target ones.</li> 
+<li><tt>for functions in libraries:</tt> hook appropriate functions and compare their arguments against target ones;</li>
+<li><tt>for libraries that must and must not be loaded:</tt> store a list of exclusions for libraries that should not be reported as loaded.</li> 
 </ul>
 
 <hr class="space">
