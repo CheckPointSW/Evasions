@@ -169,10 +169,40 @@ Such a short delay of only 2 seconds implies that the user should be active at t
 
 <hr class="space">
 
+More sophisticated checks rely on detection of not only the mouse movement per se but the pattern of such movement. The following example is taken from the research of <a href="https://outpost24.com/blog/lummac2-anti-sandbox-technique-trigonometry-human-detection/">LummaC2 Stealer</a> conducted by Outpost24.
+
+First, malware captures mouse movements with the delay of 50 msec between them.
+
+<div style="text-align: center; margin: auto">
+  <img src="{{site.baseurl}}/assets/images/trigonometry_mouse_check_1.webp"><br />
+</div>
+
+<hr class="space">
+
+Second, the vectors are drawn out of paired captured positions.
+
+<div style="text-align: center; margin: auto">
+  <img src="{{site.baseurl}}/assets/images/trigonometry_mouse_check_2.webp"><br />
+</div>
+
+<hr class="space">
+
+Next, the angles are calculated between the corresponding vectors.
+
+<div style="text-align: center; margin: auto">
+  <img src="{{site.baseurl}}/assets/images/trigonometry_mouse_check_3.webp"><br />
+</div>
+
+<hr class="space">
+
+Finally, the angles are compared with the 45.0º threshold value, and if any of the angles is bigger than this hardcoded value, malware treats the result as being suspicious and does not execute the malicious code.
+
+<hr class="space">
+
 <b>Countermeasures</b>
 <p></p>
 
-Implement the module for mouse movement during a sample emulation.
+Implement the module for mouse movement during a sample emulation. Make sure to come up with a more delicate way of interacting with the mouse cursor rather than just random movements all around the screen, so that it resembles the behavior of a human being.
 
 <br />
 <h4><a class="a-dummy" name="check-via-request-for-user-interaction">2.2. Check via a request for user interaction</a></h4>
