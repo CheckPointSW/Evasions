@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: post_main
 title:  "Evasions: macOS"
 title-image: "/assets/icons/macos.svg"
 categories: evasions 

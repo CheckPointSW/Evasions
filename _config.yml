@@ -23,7 +23,7 @@ url: "https://evasions.checkpoint.com" # the base hostname & protocol for your s
 markdown: kramdown
 
 collections:
-  techniques:
+  src:
     output: true
 
 defaults:

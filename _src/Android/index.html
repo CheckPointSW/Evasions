@@ -5,7 +5,7 @@ layout: main
 <head>
 <style>
 body {
-   min-width:380px;
+   min-width:880px;
 }
 
 .flex-top {
@@ -27,13 +27,13 @@ body {
   align-content: space-around;
   align-items: center;
   justify-content: space-evenly;
-  min-width: 1400px;
+  min-width: 1200px;
 }
 
 .flex-container > div {
   flex: 0 0 25%;
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 30px;
   display: grid;
 }
@@ -91,7 +91,7 @@ body {
 }
 
 .icon {
-  min-width: 160px;
+  min-width: 180px;
   height: 140px;
 }
 
@@ -103,8 +103,8 @@ body {
 <section>
   <div class="jumbotron">
     <div class="container logo">
-      <img src="assets/images/CPR_Logo_transparent.png" width="165px" />
-      <span class="title">{{site.description}}</span>
+      <img src="{{ site.url }}/assets/images/CPR_Logo_transparent.png" width="165px" />
+      <span class="title">Android: Evasion & Anti-Debug techniques</span>
     </div>
 </div>
 </section>
@@ -113,53 +113,54 @@ body {
 
 <div class="flex-top">
   <div class="flex-container">
-
+  
     <div class="icon">
       <div>
         <span class="outer-img-pink">
-          <a class="a-active" href="src/Evasions/index.html" >
-            <span class="inner-img" style='background-image:url("assets/icons/evasions.png")' />
+          <a class="a-active" href="techniques/anti-analysis.html" >
+            <span class="inner-img" style='background-image:url("assets/icons/anti_analysis.png")' />
           </a>
         </span>
-      <a class="a-active" href="src/Evasions/index.html">Windows: Evasions</a>
+        <a class="a-active" href="techniques/anti-analysis.html">APK anti-analysis</a>
+      </div>
+    </div>
+
+    <div class="icon">
+      <div>
+        <span class="outer-img-grey">
+          <a>
+            <span class="inner-img" style='background-image:url("assets/icons/environment_gray.png")' />
+          </a>
+        </span>
+      <a class="grey-text">Environment detection [coming soon]</a>
      </div>
     </div>
 
     <div class="icon">
       <div>
-        <span class="outer-img-pink">
-          <a class="a-active" href="src/Anti-Debug/index.html" >
-            <span class="inner-img" style='background-image:url("assets/icons/anti-debug.png")' />
+        <span class="outer-img-grey">
+          <a>
+            <span class="inner-img" style='background-image:url("assets/icons/emulator_flags_gray.svg")' />
           </a>
         </span>
-        <a class="a-active" href="src/Anti-Debug/index.html">Windows: Anti-debug</a>
+        <a class="grey-text">Emulator & debug flags [planned]</a>
       </div>
     </div>
 
     <div class="icon">
       <div>
-        <span class="outer-img-pink">
-          <a class="a-active" href="src/MacOS/macos.html" >
-            <span class="inner-img" style='background-image:url("assets/icons/mac.svg")' />
+        <span class="outer-img-grey">
+          <a>
+            <span class="inner-img" style='background-image:url("assets/icons/human_behavior_gray.png")' />
           </a>
         </span>
-        <a class="a-active" href="src/MacOS/macos.html">macOS</a>
-      </div>
-    </div>
-
-    <div class="icon">
-      <div>
-        <span class="outer-img-pink">
-          <a class="a-active" href="src/Android/index.html">
-            <span class="inner-img" style='background-image:url("assets/icons/android.png")' />
-          </a>
-        </span>
-      <a class="a-active" href="src/Android/index.html">Android</a>
+      <a class="grey-text">Human behavior<br />[planned]</a>
       </div>
     </div>
 
   </div>
 </div>
+<a href={{ site.url }}{{ site.baseurl }}><p style="text-align:center">Go to the title page</a>
 
 <br />
 
