@@ -63,7 +63,7 @@ sandbox has a sleep skipping feature that replaces delays with a very short valu
 its malicious activity before an analysis timeout.
 
 <div style="text-align: center">
-  <img src="/assets/images/sleep_skipping.png" />
+  <img src="../assets/images/sleep_skipping.png" />
 </div>
 <br />
 However, this can also be used to detect a sandbox.<br />
@@ -218,7 +218,7 @@ which checks the current date and verifies if the day is either the 16th, 17th o
 of a given month.
 <p><b>Example:</b></p>
 <div style="text-align: center">
-  <img src="/assets/images/date_anti_sb.png" />
+  <img src="../assets/images/date_anti_sb.png" />
 </div>
 <br/>
 
@@ -421,7 +421,7 @@ with different speeds in the different processes. After a delay we should synchr
 the current time in the two processes. A big difference in measured time values indicates sleep skipping was performed.
 
 <div style="text-align: center">
-  <img src="/assets/images/sleep_skipping_detection.png" />
+  <img src="../assets/images/sleep_skipping_detection.png" />
 </div>
 
 The current version of the Cuckoo monitor disables sleep skipping after creating new threads or processes.

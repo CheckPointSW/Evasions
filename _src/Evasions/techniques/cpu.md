@@ -273,7 +273,7 @@ MMX instructions may be used as random instructions by malware. Sometimes such s
 <p></p>
 
 <div style="text-align: center">
-  <img src="{{site.baseurl}}/assets/images/mmx_anti_sb.png">
+  <img src="../assets/images/mmx_anti_sb.png">
 </div>
 
 <br />

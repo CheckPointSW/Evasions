@@ -1,0 +1,209 @@
+---
+layout: main
+---
+
+<head>
+<style>
+body {
+   min-width:380px;
+}
+
+.flex-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-container {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+  align-items: center;
+  justify-content: space-evenly;
+  max-width: 800px;
+}
+
+.flex-container > div {
+  flex: 0 0 25%;
+  text-align: center;
+  margin-bottom: 30px;
+  display: grid;
+}
+
+.outer-img-pink {
+    height: 120px;
+    width: 120px;
+    display: inline-flex;
+    background-color: rgb(255,86,136);
+    padding: 10px;
+    border: 0px;
+}
+.outer-img-pink:hover {
+    height: 120px;
+    width: 120px;
+    display: inline-flex;
+    background-color: rgb(255,86,136);
+    padding: 10px;
+    border: 0px;
+}
+
+.outer-img-grey {
+    height: 120px;
+    width: 120px;
+    display: inline-flex;
+    background-color: rgb(159,159,159);
+    padding: 10px;
+    border: 0px;
+}
+.outer-img-grey:hover {
+    height: 120px;
+    width: 120px;
+    display: inline-flex;
+    background-color: rgb(159,159,159);
+    padding: 10px;
+    border: 0px;
+}
+
+.inner-img {
+    width: 100px;
+    height: 100px;
+    display: inline-flex;
+    background-size: 100px 100px;
+}
+.inner-img-grey {
+    width: 100px;
+    height: 100px;
+    display: inline-flex;
+    background-size: 100px 100px;
+}
+
+.grey-text {
+  color: darkgrey;
+  display: block;
+}
+
+.icon {
+  min-width: 180px;
+  height: 140px;
+}
+
+</style>
+</head>
+
+<body>
+
+<section>
+  <div class="jumbotron">
+    <div class="container logo">
+      <img src="{{ site.url }}/assets/images/CPR_Logo_transparent.png" width="165px" />
+      <span class="title">Windows: Anti-debug techniques</span>
+    </div>
+</div>
+</section>
+
+<br />
+<br />
+
+<div class="flex-top">
+  <div class="flex-container" style="justify-content: center;">
+
+    <!-- first row -->
+
+    <div class="icon">
+      <div>
+        <span class="outer-img-pink">
+          <a class="a-active" href="techniques/debug-flags.html" >
+            <span class="inner-img" style='background-image:url("assets/icons/debug_flags.svg")' />
+          </a>
+        </span>
+      <a class="a-active" href="techniques/debug-flags.html">Debug Flags</a>
+     </div>
+    </div>
+
+    <div class="icon">
+      <div>
+        <span class="outer-img-pink">
+          <a class="a-active" href="techniques/object-handles.html" >
+            <span class="inner-img" style='background-image:url("assets/icons/object-handles.svg")' />
+          </a>
+        </span>
+        <a class="a-active" href="techniques/object-handles.html">Object Handles</a>
+      </div>
+    </div>
+
+    <div class="icon">
+      <div>
+        <span class="outer-img-pink">
+          <a class="a-active" href="techniques/exceptions.html" >
+            <span class="inner-img" style='background-image:url("assets/icons/exceptions.svg")' />
+          </a>
+        </span>
+        <a class="a-active" href="techniques/exceptions.html">Exceptions</a>
+      </div>
+    </div>
+
+    <div class="icon">
+      <div>
+        <span class="outer-img-pink">
+          <a class="a-active" href="techniques/timing.html">
+            <span class="inner-img" style='background-image:url("assets/icons/timing.svg")' />
+          </a>
+        </span>
+      <a class="a-active" href="techniques/timing.html">Timing</a>
+      </div>
+    </div>
+
+    <!-- second row -->
+
+    <div class="icon">
+      <font>
+        <span class="outer-img-pink">
+          <a class="a-active" href="techniques/process-memory.html">
+            <span class="inner-img" style='background-image:url("assets/icons/memory.svg")' />
+          </a>
+        </span>
+      </font>
+      <a class="a-active" href="techniques/process-memory.html">Process Memory</a>
+    </div>
+    <div class="icon">
+      <font>
+        <span class="outer-img-pink">
+          <a class="a-active" href="techniques/assembly.html">
+            <span class="inner-img" style='background-image:url("assets/icons/assembly.svg")' />
+          </a>
+        </span>
+      </font>
+      <a class="a-active" href="techniques/assembly.html">Assembly instructions</a>
+    </div>
+    <div class="icon">
+      <font>
+        <span class="outer-img-pink">
+          <a class="a-active" href="techniques/interactive.html">
+            <span class="inner-img" style='background-image:url("assets/icons/interactive.svg")' />
+          </a>
+        </span>
+      </font>
+      <a class="a-active" href="techniques/interactive.html">Interactive Checks</a>
+    </div>
+    <div class="icon">
+      <font>
+        <span class="outer-img-pink">
+          <a class="a-active" href="techniques/misc.html">
+            <span class="inner-img" style='background-image:url("assets/icons/misc.svg")' />
+          </a>
+        </span>
+      </font>
+      <a class="a-active" href="techniques/misc.html">Misc</a>
+    </div>
+
+  </div>
+</div>
+<a href={{ site.url }}{{ site.baseurl }}><p style="text-align:center">Go to the title page</p></a>
+
+<br />
+
+</body>
