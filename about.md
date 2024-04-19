@@ -9,7 +9,6 @@ permalink: /about/
 This encyclopedia wouldn't be possible without invaluable assistance of the following Check Point researchers:
 <ul>
 <li>Aliaksandr Trafimchuk (<i class="fa fa-twitter fa-lg" style="color:#1DA1F2"></i> <a href="https://twitter.com/a14xt">@a14xt</a>)</li>
-<li>Alexey Bukhteyev</li>
 <li>Bohdan Melnykov (<i class="fa fa-twitter fa-lg" style="color:#1DA1F2"></i> <a href="https://twitter.com/_mbv06_">@_mbv06_</a>)</li>
 </ul>
 
@@ -72,6 +71,12 @@ All the techniques which are described in this encyclopedia are implemented in o
 
 <br />
 
+<h2>macOS evasions repository</h2>
+
+This repository is made in the same style and format as its Windows counterparts. However, due to the specifics of the macOS platform, only evasion techniques are present, without anti-debug tricks. Code examples are provided for each of the included groups, along with countermeasures advice.
+
+<br />
+
 <h2>Android evasions repository</h2>
 
 This repository is made in the same style and format as its Windows couterparts. However, due to the specifics of the Android platform and low number of techniques in comparison to Windows, evasions and anti-debug are present in one repository. Where applicable, the code examples are provided.
@@ -83,6 +88,11 @@ This repository is made in the same style and format as its Windows couterparts.
 The author of Windows Anti-Debug repository and the corresponding "About" section:
 <ul>
 <li>Yaraslau Harakhavik (<i class="fa fa-twitter fa-lg" style="color:#1DA1F2"></i> <a href="https://twitter.com/slevin_by">@slevin_by</a>)</li>
+</ul>
+
+The author of macOS Evasions repository and the corresponding "About" section:
+<ul>
+<li>Alexey Bukhteyev</li>
 </ul>
 
 The author of other encyclopedia parts:
