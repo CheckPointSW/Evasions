@@ -216,5 +216,5 @@ echo $((`sysctl -n hw.logicalcpu`/`sysctl -n hw.physicalcpu`))
 
 <h3><a class="a-dummy" name="countermeasures">Countermeasures</a></h3>
 Apple software licensing policy doesn't allow emulating macOS on hardware other than the original Apple hardware. 
-It is also doesn't not allow more than 2 virtual machines to run on one host machine.
+It also doesn't not allow more than 2 virtual machines to run on one host machine.
 Therefore, we suggest using solutions such as DeepFreeze instead of virtualization. In addition, signed kernel extensions should be used.
