@@ -18,6 +18,7 @@ tags: assembly
 * [6. Instruction Counting](#instruction-counting)
 * [7. POPF and Trap Flag](#popf_and_trap_flag)
 * [8. Instruction Prefixes](#instruction_prefixes)
+* [9. POPF and CPUID](#popf_and_cpuid)
 * [Mitigations](#mitigations)
 <br />
 
@@ -401,6 +402,20 @@ bool IsDebugged()
 }
 
 {% endhighlight %}
+
+<hr class="space">
+
+
+<br />
+<h3><a class="a-dummy" name="popf_and_cpuid">9. POPF and CPUID</a></h3>
+
+To detect the use of a VM in a sandbox, malware could check the behavior of the CPU after the trap flag is set. 
+The trap flag is a flag bit in the processor's flags register that is used for debugging purposes. 
+When the Trap Flag is set, the processor enters a single-step mode, which causes it to execute only one instruction at a time and then generate a debug exception. 
+
+For example, The <tt>popf</tt> instruction pops the top value from the stack and loads it into the flags register. Based on the value on the stack that has the Trap Flag bit set, the processor enters a single-step mode (SINGLE_STEP_EXCEPTION) after executing the next instruction. 
+
+But the next instruction is <tt>cpuid</tt> which behaves differently in VM. When in a physical machine, this exception stops the CPU execution to allow the contents of the registers and memory location to be examined by the exception handler after thecpuid instruction which moves away the instruction pointer from the next bytes. In a VM, executing cpuid will result in a VM exit. During the VM exit the hypervisor will carry out its usual tasks of emulating the behaviors of the cpuid instruction which will make the Trap Flag be delayed and the code execution will continue to the next instruction with the C7 B2 bytes. This results in an exception because of an illegal instruction exception. 
 
 <hr class="space">
 

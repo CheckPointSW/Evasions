@@ -2,7 +2,7 @@
 layout: post
 title:  "Evasions: Registry"
 title-image: "/assets/icons/registry.svg"
-categories: evasions 
+categories: evasions
 tags: registry
 ---
 
@@ -10,9 +10,11 @@ tags: registry
 
 [Registry detection methods](#registry-detection-methods)
 <br />
-  [1. Check if particular registry paths exist](#check-if-particular-registry-paths-exist)
+[1. Check if particular registry paths exist](#check-if-particular-registry-paths-exist)
 <br />
-  [2. Check if particular registry keys contain specified strings](#check-if-keys-contain-strings)
+[2. Check if particular registry keys contain specified strings](#check-if-keys-contain-strings)
+<br />
+[3. Check if VBAWarnings enabled](#check-if-vbawarning-enabled)
 <br />
 [Countermeasures](#countermeasures)
 <br />
@@ -60,13 +62,13 @@ Take a look at [title section](#registry-detection-methods) to get the list of u
 
 /* sample of usage: see detection of VirtualBox in the table below to check registry path */
 int vbox_reg_key7() {
-    return pafish_exists_regkey(HKEY_LOCAL_MACHINE, "HARDWARE\\ACPI\\FADT\\VBOX__");
+return pafish_exists_regkey(HKEY_LOCAL_MACHINE, "HARDWARE\\ACPI\\FADT\\VBOX__");
 }
 
 /* code is taken from "pafish" project, see references on the parent page */
 int pafish_exists_regkey(HKEY hKey, char * regkey_s) {
-    HKEY regkey;
-    LONG ret;
+HKEY regkey;
+LONG ret;
 
     /* regkey_s == "HARDWARE\\ACPI\\FADT\\VBOX__"; */
     if (pafish_iswow64()) {
@@ -342,16 +344,16 @@ Take a look at [title section](#registry-detection-methods) to get the list of u
 {% highlight c %}
 /* sample of usage: see detection of VirtualBox in the table below to check registry path and key values */
 int vbox_reg_key2() {
-    return pafish_exists_regkey_value_str(HKEY_LOCAL_MACHINE, "HARDWARE\\Description\\System", "SystemBiosVersion", "VBOX");
+return pafish_exists_regkey_value_str(HKEY_LOCAL_MACHINE, "HARDWARE\\Description\\System", "SystemBiosVersion", "VBOX");
 }
 
 /* code is taken from "pafish" project, see references on the parent page */
 int pafish_exists_regkey_value_str(HKEY hKey, char * regkey_s, char * value_s, char * lookup) {
-    /*
-        regkey_s == "HARDWARE\\Description\\System";
-        value_s == "SystemBiosVersion";
-        lookup == "VBOX";
-    */
+/*
+regkey_s == "HARDWARE\\Description\\System";
+value_s == "SystemBiosVersion";
+lookup == "VBOX";
+*/
 
     HKEY regkey;
     LONG ret;
@@ -737,14 +739,27 @@ then it's an indication of application trying to use the evasion technique.
 
 
 <br />
+
+<hr class="space">
+
+<br />
+<h3><a class="a-dummy" name="check-if-vbawarning-enabled">3. Check if VBAWarnings enabled</a></h3>
+
+“Enable all macros” prompt in Office documents means the macros can be executed without any user interaction. This behavior is common for sandboxes.
+A malware can use that in order to check if it is running on a sandbox checking the flag in the registry keys  <tt>SOFTWARE\Microsoft\Office\<version>\Word\Security\VBAWarnings</tt> while the version is between 12.0 to 19.0.
+
+<br />
+
 <h3><a class="a-dummy" name="countermeasures">Countermeasures</a></h3>
 
 Hook target functions and return appropriate results if indicators (registry strings from tables) are checked.
 
 <br />
+
+
 <h3><a class="a-dummy" name="credits">Credits</a></h3>
 
-Credits go to open-source project from where code samples were taken: 
+Credits go to open-source project from where code samples were taken:
 <ul>
 <li>pafish project on <a href="https://github.com/a0rtega/pafish">github</a></li>
 </ul>

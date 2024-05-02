@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Evasions: Generic OS queries"
-categories: evasions 
+categories: evasions
 tags: generic-os-queries
 ---
 
@@ -9,25 +9,25 @@ tags: generic-os-queries
 
 [Generic OS queries](#generic-os-queries)
 <br />
-  [1. Check if the username is specific](#check-if-username-is-specific)
+[1. Check if the username is specific](#check-if-username-is-specific)
 <br />
-  [2. Check if the computer name is specific](#check-if-computer-name-is-specific)
+[2. Check if the computer name is specific](#check-if-computer-name-is-specific)
 <br />
-  [3. Check if the host name is specific](#check-if-host-name-is-specific)
+[3. Check if the host name is specific](#check-if-host-name-is-specific)
 <br />
-  [4. Check if the total RAM is low](#check-if-total-ram-is-low)
+[4. Check if the total RAM is low](#check-if-total-ram-is-low)
 <br />
-  [5. Check if the screen resolution is non-usual for host OS](#check-if-screen-res)
+[5. Check if the screen resolution is non-usual for host OS](#check-if-screen-res)
 <br />
-  [6. Check if the number of processors is low](#check-if-number-of-processors)
+[6. Check if the number of processors is low](#check-if-number-of-processors)
 <br />
-  [7. Check if the quantity of monitors is small](#check-if-quantity-of-monitors)
+[7. Check if the quantity of monitors is small](#check-if-quantity-of-monitors)
 <br />
-  [8. Check if the hard disk drive size and free space are small](#check-if-hard-disk)
+[8. Check if the hard disk drive size and free space are small](#check-if-hard-disk)
 <br />
-  [9. Check if the system uptime is small](#check-if-system-uptime)
+[9. Check if the system uptime is small](#check-if-system-uptime)
 <br />
-  [10. Check if the OS was boot from virtual hard disk (Win8+)](#check-if-os-was-boot-from-virtual-disk)
+[10. Check if the OS was boot from virtual hard disk (Win8+)](#check-if-os-was-boot-from-virtual-disk)
 <br />
 [Countermeasures](#countermeasures)
 <br />
@@ -65,9 +65,9 @@ Function used:
 {% highlight c %}
 
 bool is_user_name_match(const std::string &s) {
-    auto out_length = MAX_PATH;
-    std::vector<uint8_t> user_name(out_length, 0);
-    ::GetUserNameA((LPSTR)user_name.data(), (LPDWORD)&out_length);
+auto out_length = MAX_PATH;
+std::vector<uint8_t> user_name(out_length, 0);
+::GetUserNameA((LPSTR)user_name.data(), (LPDWORD)&out_length);
 
     return (!lstrcmpiA((LPCSTR)user_name.data(), s.c_str()));
 }
@@ -185,9 +185,9 @@ Function used:
 {% highlight c %}
 
 bool is_computer_name_match(const std::string &s) {
-    auto out_length = MAX_PATH;
-    std::vector<uint8_t> comp_name(out_length, 0);
-    ::GetComputerNameA((LPSTR)comp_name.data(), (LPDWORD)&out_length);
+auto out_length = MAX_PATH;
+std::vector<uint8_t> comp_name(out_length, 0);
+::GetComputerNameA((LPSTR)comp_name.data(), (LPDWORD)&out_length);
 
     return (!lstrcmpiA((LPCSTR)comp_name.data(), s.c_str()));
 }
@@ -251,9 +251,9 @@ Function used:
 {% highlight c %}
 
 bool is_host_name_match(const std::string &s) {
-    auto out_length = MAX_PATH;
-    std::vector<uint8_t> dns_host_name(out_length, 0);
-    ::GetComputerNameExA(ComputerNameDnsHostname, (LPSTR)dns_host_name.data(), (LPDWORD)&out_length);
+auto out_length = MAX_PATH;
+std::vector<uint8_t> dns_host_name(out_length, 0);
+::GetComputerNameExA(ComputerNameDnsHostname, (LPSTR)dns_host_name.data(), (LPDWORD)&out_length);
 
     return (!lstrcmpiA((LPCSTR)dns_host_name.data(), s.c_str()));
 }
@@ -304,8 +304,8 @@ Functions used to get executable path:
 {% highlight c %}
 BOOL memory_space()
 {
-    DWORDLONG ullMinRam = (1024LL * (1024LL * (1024LL * 1LL))); // 1GB
-    
+DWORDLONG ullMinRam = (1024LL * (1024LL * (1024LL * 1LL))); // 1GB
+
     MEMORYSTATUSEX statex = {0};
     statex.dwLength = sizeof(statex);
     GlobalMemoryStatusEx(&statex); // calls NtQuerySystemInformation
@@ -370,7 +370,7 @@ Function used:
 </ul>
 
 Besides this function numbers of processors can be obtained from PEB, via either asm inline or intrinsic function, see code samples below.
-
+It can be also obtained (ActiveProcessorCount flag) from the KUSER_SHARED_DATA structure.
 <hr class="space">
 
 <b>Code sample (variant 1, al-khaser project)</b>
@@ -381,9 +381,9 @@ Besides this function numbers of processors can be obtained from PEB, via either
 BOOL NumberOfProcessors()
 {
 #if defined (ENV64BIT)
-	PULONG ulNumberProcessors = (PULONG)(__readgsqword(0x30) + 0xB8);
+PULONG ulNumberProcessors = (PULONG)(__readgsqword(0x30) + 0xB8);
 #elif defined(ENV32BIT)
-	PULONG ulNumberProcessors = (PULONG)(__readfsdword(0x30) + 0x64);
+PULONG ulNumberProcessors = (PULONG)(__readfsdword(0x30) + 0x64);
 #endif
 
     if (*ulNumberProcessors < 2)
@@ -405,9 +405,9 @@ BOOL NumberOfProcessors()
 
 __declspec(naked)
 DWORD get_number_of_processors() {
-    __asm {
-        ; get pointer to Process Environment Block (PEB)
-        mov eax, fs:0x30
+__asm {
+; get pointer to Process Environment Block (PEB)
+mov eax, fs:0x30
 
         ; read the field containing target number
         mov eax, [eax + 0x64]
@@ -429,14 +429,32 @@ DWORD get_number_of_processors() {
 {% highlight c %}
 
 int gensandbox_one_cpu_GetSystemInfo() {
-    SYSTEM_INFO si;
-    GetSystemInfo(&si);
-    return si.dwNumberOfProcessors < 2 ? TRUE : FALSE;
+SYSTEM_INFO si;
+GetSystemInfo(&si);
+return si.dwNumberOfProcessors < 2 ? TRUE : FALSE;
 }
 
 {% endhighlight %}
 
 <i>Credits for this code sample: <a href="https://github.com/a0rtega/pafish">pafish project</a> </i>
+
+<hr class="space">
+
+<b>Code sample (variant 4)</b>
+<p></p>
+
+{% highlight c %}
+
+__declspec(naked)
+DWORD get_number_of_active_processors() {
+__asm {
+mov eax, 0x7ffe0000  ; KUSER_SHARED_DATA structure fixed address
+mov eax, byte ptr [eax+0x3c0] ; checking ActiveProcessorCount
+retn  ; return from function
+}
+}
+
+{% endhighlight %}
 
 <hr class="space">
 
@@ -466,17 +484,17 @@ Functions used:
 
 BOOL CALLBACK MonitorEnumProc(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMonitor, LPARAM dwData)
 {
-    int *Count = (int*)dwData;
-    (*Count)++;
-    return TRUE;
+int *Count = (int*)dwData;
+(*Count)++;
+return TRUE;
 }
 
 int MonitorCount()
 {
-    int Count = 0;
-    if (EnumDisplayMonitors(NULL, NULL, MonitorEnumProc, (LPARAM)&Count))
-        return Count;
-    return -1; // signals an error
+int Count = 0;
+if (EnumDisplayMonitors(NULL, NULL, MonitorEnumProc, (LPARAM)&Count))
+return Count;
+return -1; // signals an error
 }
 
 {% endhighlight %}
@@ -508,8 +526,8 @@ Functions used:
 {% highlight c %}
 
 int gensandbox_drive_size() {
-    GET_LENGTH_INFORMATION size;
-    DWORD lpBytesReturned;
+GET_LENGTH_INFORMATION size;
+DWORD lpBytesReturned;
 
     HANDLE drive = CreateFile("\\\\.\\PhysicalDrive0", GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
     if (drive == INVALID_HANDLE_VALUE) {
@@ -540,7 +558,7 @@ int gensandbox_drive_size() {
 {% highlight c %}
 
 int gensandbox_drive_size2() {
-    ULARGE_INTEGER total_bytes;
+ULARGE_INTEGER total_bytes;
 
     if (GetDiskFreeSpaceExA("C:\\", NULL, &total_bytes, NULL))
     {
@@ -567,7 +585,7 @@ int gensandbox_drive_size2() {
 <li><tt>PARTITION_INFO_EX</tt></li>
 </ul>
 
-<i>Against checking free space:</i> patch/hook <font face="Courier New">NtQueryVolumeInformationFile</font> to process these classes: 
+<i>Against checking free space:</i> patch/hook <font face="Courier New">NtQueryVolumeInformationFile</font> to process these classes:
 <ul>
 <li><tt>FileFsSizeInformation</tt></li>
 <li><tt>FileFsFullSizeInformation</tt></li>
@@ -591,8 +609,8 @@ Function used:
 {% highlight c %}
 
 bool Generic::CheckSystemUptime() const {
-    const DWORD uptime = 1000 * 60 * 12; // 12 minutes
-    return GetTickCount() < uptime;
+const DWORD uptime = 1000 * 60 * 12; // 12 minutes
+return GetTickCount() < uptime;
 }
 
 {% endhighlight %}
@@ -604,8 +622,8 @@ bool Generic::CheckSystemUptime() const {
 #define MIN_UPTIME_MINUTES 12
 BOOL uptime_check()
 {
-    ULONGLONG uptime_minutes = GetTickCount64() / (60 * 1000);
-    return uptime_minutes < MIN_UPTIME_MINUTES;
+ULONGLONG uptime_minutes = GetTickCount64() / (60 * 1000);
+return uptime_minutes < MIN_UPTIME_MINUTES;
 }
 {% endhighlight %}
 <br />
@@ -613,11 +631,11 @@ BOOL uptime_check()
 {% highlight c %}
 BOOL uptime_check2()
 {
-    SYSTEM_TIME_OF_DAY_INFORMATION  SysTimeInfo;
-    ULONGLONG uptime_minutes;
-    NtQuerySystemInformation(SystemTimeOfDayInformation, &SysTimeInfo, sizeof(SysTimeInfo), 0);
-    uptime_minutes = (SysTimeInfo.CurrentTime.QuadPart - SysTimeInfo.BootTime.QuadPart) / (60 * 1000 * 10000);
-    return uptime_minutes < MIN_UPTIME_MINUTES;
+SYSTEM_TIME_OF_DAY_INFORMATION  SysTimeInfo;
+ULONGLONG uptime_minutes;
+NtQuerySystemInformation(SystemTimeOfDayInformation, &SysTimeInfo, sizeof(SysTimeInfo), 0);
+uptime_minutes = (SysTimeInfo.CurrentTime.QuadPart - SysTimeInfo.BootTime.QuadPart) / (60 * 1000 * 10000);
+return uptime_minutes < MIN_UPTIME_MINUTES;
 }
 {% endhighlight %}
 
@@ -652,7 +670,7 @@ Take a look at the excerpt from malware <a href="https://github.com/a0rtega/pafi
 {% highlight c %}
 
 int gensandbox_IsNativeVhdBoot() {
-    BOOL isnative = FALSE;
+BOOL isnative = FALSE;
 
     IsNativeVhdBoot fnnative = (IsNativeVhdBoot) GetProcAddress(
         GetModuleHandleA("kernel32"), "IsNativeVhdBoot");
@@ -684,7 +702,7 @@ Countermeasures are present in appropriate sub-sections, see above.
 <br />
 <h3><a class="a-dummy" name="credits">Credits</a></h3>
 
-Credits go to open-source projects from where code samples were taken: 
+Credits go to open-source projects from where code samples were taken:
 <ul>
 <li>al-khaser project on <a href="https://github.com/LordNoteworthy/al-khaser">github</a></li>
 <li>pafish project on <a href="https://github.com/a0rtega/pafish">github</a></li>

@@ -2,7 +2,7 @@
 layout: post
 title:  "Anti-Debug: Misc"
 title-image: "/assets/icons/misc.svg"
-categories: anti-debug 
+categories: anti-debug
 tags: misc
 ---
 
@@ -19,8 +19,9 @@ tags: misc
 * [5. DbgSetDebugFilterState()](#dbgsetdebugfilterstate)
 * [6. NtYieldExecution() / SwitchToThread()](#switchtothread)
 * [7. VirtualAlloc() / GetWriteWatch()](#getwritewatch)
+* [8. IFEO removal](#ifeo-removal)
 * [Mitigations](#mitigations)
-<br />
+  <br />
 
 <hr class="space">
 
@@ -45,26 +46,26 @@ The following functions can be used:
 {% highlight c %}
 
 const std::vector<std::string> vWindowClasses = {
-    "antidbg",
-    "ID",               // Immunity Debugger
-    "ntdll.dll",        // peculiar name for a window class
-    "ObsidianGUI",
-    "OLLYDBG",
-    "Rock Debugger",
-    "SunAwtFrame",
-    "Qt5QWindowIcon"
-    "WinDbgFrameClass", // WinDbg
-    "Zeta Debugger",
+"antidbg",
+"ID",               // Immunity Debugger
+"ntdll.dll",        // peculiar name for a window class
+"ObsidianGUI",
+"OLLYDBG",
+"Rock Debugger",
+"SunAwtFrame",
+"Qt5QWindowIcon"
+"WinDbgFrameClass", // WinDbg
+"Zeta Debugger",
 };
 
 bool IsDebugged()
 {
-    for (auto &sWndClass : vWindowClasses)
-    {
-        if (NULL != FindWindowA(sWndClass.c_str(), NULL))
-            return true;
-    }
-    return false;
+for (auto &sWndClass : vWindowClasses)
+{
+if (NULL != FindWindowA(sWndClass.c_str(), NULL))
+return true;
+}
+return false;
 }
 
 {% endhighlight %}
@@ -92,9 +93,9 @@ Then, the parent process ID can be obtained from the <tt>PROCESS_BASIC_INFORMATI
 
 bool IsDebugged()
 {
-    HWND hExplorerWnd = GetShellWindow();
-    if (!hExplorerWnd)
-        return false;
+HWND hExplorerWnd = GetShellWindow();
+if (!hExplorerWnd)
+return false;
 
     DWORD dwExplorerProcessId;
     GetWindowThreadProcessId(hExplorerWnd, &dwExplorerProcessId);
@@ -127,9 +128,9 @@ The parent process ID and the parent process name can be obtained using the <tt>
 
 DWORD GetParentProcessId(DWORD dwCurrentProcessId)
 {
-    DWORD dwParentProcessId = -1;
-    PROCESSENTRY32W ProcessEntry = { 0 };
-    ProcessEntry.dwSize = sizeof(PROCESSENTRY32W);
+DWORD dwParentProcessId = -1;
+PROCESSENTRY32W ProcessEntry = { 0 };
+ProcessEntry.dwSize = sizeof(PROCESSENTRY32W);
 
     HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
     if(Process32FirstW(hSnapshot, &ProcessEntry))
@@ -150,8 +151,8 @@ DWORD GetParentProcessId(DWORD dwCurrentProcessId)
 
 bool IsDebugged()
 {
-    bool bDebugged = false;
-    DWORD dwParentProcessId = GetParentProcessId(GetCurrentProcessId());
+bool bDebugged = false;
+DWORD dwParentProcessId = GetParentProcessId(GetCurrentProcessId());
 
     PROCESSENTRY32 ProcessEntry = { 0 };
     ProcessEntry.dwSize = sizeof(PROCESSENTRY32W);
@@ -187,11 +188,11 @@ exception, which can cause some unexpected behavior.
 <p></p>
 
 {% highlight nasm %}
-    xor  eax, eax 
-    push fs 
-    pop  ds 
-l1: xchg [eax], cl 
-    xchg [eax], cl
+xor  eax, eax
+push fs
+pop  ds
+l1: xchg [eax], cl
+xchg [eax], cl
 {% endhighlight %}
 
 <hr class="space">
@@ -202,18 +203,18 @@ On the 64-bit versions of Windows, single-stepping through this code will cause 
 <p></p>
 
 {% highlight nasm %}
-    xor  eax, eax 
-    push offset l2 
-    push d fs:[eax] 
-    mov  fs:[eax], esp 
-    push fs 
-    pop  ss 
-    xchg [eax], cl 
-    xchg [eax], cl 
-l1: int  3 ;force exception to occur 
-l2: ;looks like it would be reached 
-    ;if an exception occurs 
-    ...
+xor  eax, eax
+push offset l2
+push d fs:[eax]
+mov  fs:[eax], esp
+push fs
+pop  ss
+xchg [eax], cl
+xchg [eax], cl
+l1: int  3 ;force exception to occur
+l2: ;looks like it would be reached
+;if an exception occurs
+...
 {% endhighlight %}
 
 <hr class="space">
@@ -223,10 +224,10 @@ then when the "<tt>int 3</tt>" instruction is reached at <tt>l1</tt> and the bre
 A variation of this technique detects the single-step event by simply checking if the assignment was successful.
 
 {% highlight nasm %}
-push 3 
-pop  gs 
-mov  ax, gs 
-cmp  al, 3 
+push 3
+pop  gs
+mov  ax, gs
+cmp  al, 3
 jne  being_debugged
 {% endhighlight %}
 
@@ -239,11 +240,11 @@ This code is also vulnerable to a race condition caused by a thread-switch event
 A variation of this technique solves that problem by waiting intentionally for a thread-switch event to occur.
 
 {% highlight nasm %}
-    push 3 
-    pop  gs 
-l1: mov  ax, gs 
-    cmp  al, 3 
-    je   l1
+push 3
+pop  gs
+l1: mov  ax, gs
+cmp  al, 3
+je   l1
 {% endhighlight %}
 
 <hr class="space">
@@ -259,10 +260,10 @@ However, this code is vulnerable to the problem that it was trying to detect in 
 
 bool IsTraced()
 {
-    __asm
-    {
-        push 3
-        pop  gs
+__asm
+{
+push 3
+pop  gs
 
     __asm SeclectorsLbl:
         mov  ax, gs
@@ -279,7 +280,7 @@ bool IsTraced()
     return false;
 
 Selectors_Debugged:
-    return true;
+return true;
 }
 
 {% endhighlight %}
@@ -299,14 +300,14 @@ The debug functions such as <tt>ntdll!DbgPrint()</tt> and <tt>kernel32!OutputDeb
 
 bool IsDebugged()
 {
-    __try
-    {
-        RaiseException(DBG_PRINTEXCEPTION_C, 0, 0, 0);
-    }
-    __except(GetExceptionCode() == DBG_PRINTEXCEPTION_C)
-    {
-        return false;
-    }
+__try
+{
+RaiseException(DBG_PRINTEXCEPTION_C, 0, 0, 0);
+}
+__except(GetExceptionCode() == DBG_PRINTEXCEPTION_C)
+{
+return false;
+}
 
     return true;
 }
@@ -328,7 +329,7 @@ The functions <tt>ntdll!DbgSetDebugFilterState()</tt> and <tt>ntdll!NtSetDebugFi
 
 bool IsDebugged()
 {
-    return NT_SUCCESS(ntdll::NtSetDebugFilterState(0, 0, TRUE));
+return NT_SUCCESS(ntdll::NtSetDebugFilterState(0, 0, TRUE));
 }
 
 {% endhighlight %}
@@ -354,12 +355,12 @@ In the example below, we define a one-byte counter (initialized with 0) which sh
 
 bool IsDebugged()
 {
-    BYTE ucCounter = 1;
-    for (int i = 0; i < 8; i++)
-    {
-        Sleep(0x0F);
-        ucCounter <<= (1 - SwitchToThread());
-    }
+BYTE ucCounter = 1;
+for (int i = 0; i < 8; i++)
+{
+Sleep(0x0F);
+ucCounter <<= (1 - SwitchToThread());
+}
 
     return ucCounter == 0;
 }
@@ -386,7 +387,7 @@ This feature can be used to track debuggers that may modify memory pages outside
 {% highlight c %}
 
 bool Generic::CheckWrittenPages1() const {
-    const int SIZE_TO_CHECK = 4096;
+const int SIZE_TO_CHECK = 4096;
 
     PVOID* addresses = static_cast<PVOID*>(VirtualAlloc(NULL, SIZE_TO_CHECK * sizeof(PVOID), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE));
     if (addresses == NULL)
@@ -429,7 +430,7 @@ bool Generic::CheckWrittenPages1() const {
 {% highlight c %}
 
 bool Generic::CheckWrittenPages2() const {
-    BOOL result = FALSE, error = FALSE;
+BOOL result = FALSE, error = FALSE;
 
     const int SIZE_TO_CHECK = 4096;
 
@@ -485,12 +486,20 @@ bool Generic::CheckWrittenPages2() const {
 {% endhighlight %}
 
 <hr class="space">
+<br />
+
+<h3><a class="a-dummy" name="ifeo-removal">8. IFEO removal</a></h3>
+
+This technique involves modifying the Image File Execution Options (IFEO) registry key, which is used by the Windows operating system to set debugging options for executable files.
+When an executable file is launched, the operating system checks the corresponding IFEO registry key for any specified debugging options. If the key exists, the operating system launches the specified debugger instead of the executable file.
+Removing these entries further complicates analysis efforts by eliminating one potential avenue for researchers to attach debuggers to the malware process.
+
 
 <br />
 <h3><a class="a-dummy" name="mitigations">Mitigations</a></h3>
 During debugging: Fill anti-debug pr anti-traced checks with <tt>NOP</tt>s.
 
- For anti-anti-debug tool development:
+For anti-anti-debug tool development:
 
 1. For <tt>FindWindow()</tt>: Hook <tt>user32!NtUserFindWindowEx()</tt>. In the hook, call the original <tt>user32!NtUserFindWindowEx()</tt> function. If it is called from the debugged process and the parent process looks suspicious, then return unsuccessfully from the hook.
 
@@ -499,7 +508,7 @@ During debugging: Fill anti-debug pr anti-traced checks with <tt>NOP</tt>s.
 * <tt>SystemSessionProcessInformation</tt>
 * <tt>SystemExtendedProcessInformation</tt>
 
-   and the process name looks suspicious, then the hook must modify the process name.
+  and the process name looks suspicious, then the hook must modify the process name.
 
 3. For Selectors: No mitigations.
 

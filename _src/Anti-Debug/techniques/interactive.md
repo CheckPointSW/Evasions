@@ -2,7 +2,7 @@
 layout: post
 title:  "Anti-Debug: Direct debugger interaction"
 title-image: "/assets/icons/interactive.svg"
-categories: anti-debug 
+categories: anti-debug
 tags: interactive
 ---
 
@@ -17,8 +17,9 @@ tags: interactive
 * [5. EnumWindows() and SuspendThread()](#suspendthread)
 * [6. SwitchDesktop()](#switchdesktop)
 * [7. OutputDebugString()](#outputdebugstring)
+* [8. Process Suspension Detection](#processsuspensiondetection)
 * [Mitigations](#mitigations)
-<br />
+  <br />
 
 <hr class="space">
 
@@ -48,10 +49,10 @@ In the example below, we run the second instance of our process which tries to a
 
 bool IsDebugged()
 {
-    WCHAR wszFilePath[MAX_PATH], wszCmdLine[MAX_PATH];
-    STARTUPINFO si = { sizeof(si) };
-    PROCESS_INFORMATION pi;
-    HANDLE hDbgEvent;
+WCHAR wszFilePath[MAX_PATH], wszCmdLine[MAX_PATH];
+STARTUPINFO si = { sizeof(si) };
+PROCESS_INFORMATION pi;
+HANDLE hDbgEvent;
 
     hDbgEvent = CreateEventW(NULL, FALSE, FALSE, EVENT_SELFDBG_EVENT_NAME);
     if (!hDbgEvent)
@@ -73,11 +74,11 @@ bool IsDebugged()
     return false;
 }
 
-bool EnableDebugPrivilege() 
+bool EnableDebugPrivilege()
 {
-    bool bResult = false;
-    HANDLE hToken = NULL;
-    DWORD ec = 0;
+bool bResult = false;
+HANDLE hToken = NULL;
+DWORD ec = 0;
 
     do
     {
@@ -105,25 +106,25 @@ bool EnableDebugPrivilege()
 
 int main(int argc, char **argv)
 {
-    if (argc < 2)
-    {        
-        if (IsDebugged())
-            ExitProcess(0);
-    }
-    else
-    {
-        DWORD dwParentPid = atoi(argv[1]);
-        HANDLE hEvent = OpenEventW(EVENT_MODIFY_STATE, FALSE, EVENT_SELFDBG_EVENT_NAME);
-        if (hEvent && EnableDebugPrivilege())
-        {
-            if (FALSE == DebugActiveProcess(dwParentPid))
-                SetEvent(hEvent);
-            else
-                DebugActiveProcessStop(dwParentPid);
-        }
-        ExitProcess(0);
-    }
-    
+if (argc < 2)
+{        
+if (IsDebugged())
+ExitProcess(0);
+}
+else
+{
+DWORD dwParentPid = atoi(argv[1]);
+HANDLE hEvent = OpenEventW(EVENT_MODIFY_STATE, FALSE, EVENT_SELFDBG_EVENT_NAME);
+if (hEvent && EnableDebugPrivilege())
+{
+if (FALSE == DebugActiveProcess(dwParentPid))
+SetEvent(hEvent);
+else
+DebugActiveProcessStop(dwParentPid);
+}
+ExitProcess(0);
+}
+
     // ...
     
     return 0;
@@ -151,30 +152,30 @@ std::atomic<bool> g_bCtlCCatched{ false };
 
 static LONG WINAPI CtrlEventExeptionHandler(PEXCEPTION_POINTERS pExceptionInfo)
 {
-    if (pExceptionInfo->ExceptionRecord->ExceptionCode == DBG_CONTROL_C)
-    {
-        g_bDebugged = true;
-        g_bCtlCCatched.store(true);
-    }
-    return EXCEPTION_CONTINUE_EXECUTION;
+if (pExceptionInfo->ExceptionRecord->ExceptionCode == DBG_CONTROL_C)
+{
+g_bDebugged = true;
+g_bCtlCCatched.store(true);
+}
+return EXCEPTION_CONTINUE_EXECUTION;
 }
 
 static BOOL WINAPI CtrlHandler(DWORD fdwCtrlType)
 {
-    switch (fdwCtrlType)
-    {
-    case CTRL_C_EVENT:
-        g_bCtlCCatched.store(true);
-        return TRUE;
-    default:
-        return FALSE;
-    }
+switch (fdwCtrlType)
+{
+case CTRL_C_EVENT:
+g_bCtlCCatched.store(true);
+return TRUE;
+default:
+return FALSE;
+}
 }
 
 bool IsDebugged()
 {
-    PVOID hVeh = nullptr;
-    BOOL bCtrlHadnlerSet = FALSE;
+PVOID hVeh = nullptr;
+BOOL bCtrlHadnlerSet = FALSE;
 
     __try
     {
@@ -221,17 +222,17 @@ We can also detect whether a tool that hooks the <tt>user32!BlockInput()</tt> an
 
 bool IsHooked ()
 {
-    BOOL bFirstResult = FALSE, bSecondResult = FALSE;
-    __try
-    {
-        bFirstResult = BlockInput(TRUE);
-        bSecondResult = BlockInput(TRUE);
-    }
-    __finally
-    {
-        BlockInput(FALSE);
-    }
-    return bFirstResult && bSecondResult;
+BOOL bFirstResult = FALSE, bSecondResult = FALSE;
+__try
+{
+bFirstResult = BlockInput(TRUE);
+bSecondResult = BlockInput(TRUE);
+}
+__finally
+{
+BlockInput(FALSE);
+}
+return bFirstResult && bSecondResult;
 }
 
 {% endhighlight %}
@@ -259,12 +260,12 @@ In the example, we hide the current thread from the debugger. This means that if
 
 bool AntiDebug()
 {
-    NTSTATUS status = ntdll::NtSetInformationThread(
-        NtCurrentThread, 
-        ntdll::THREAD_INFORMATION_CLASS::ThreadHideFromDebugger, 
-        NULL, 
-        0);
-    return status >= 0;
+NTSTATUS status = ntdll::NtSetInformationThread(
+NtCurrentThread,
+ntdll::THREAD_INFORMATION_CLASS::ThreadHideFromDebugger,
+NULL,
+0);
+return status >= 0;
 }
 
 {% endhighlight %}
@@ -288,7 +289,7 @@ DWORD g_dwDebuggerProcessId = -1;
 
 BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam)
 {
-    DWORD dwProcessId = *(PDWORD)lParam;
+DWORD dwProcessId = *(PDWORD)lParam;
 
     DWORD dwWindowProcessId;
     GetWindowThreadProcessId(hwnd, &dwWindowProcessId);
@@ -312,14 +313,14 @@ BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam)
 
 bool IsDebuggerProcess(DWORD dwProcessId) const
 {
-    EnumWindows(EnumWindowsProc, reinterpret_cast<LPARAM>(&dwProcessId));
-    return g_dwDebuggerProcessId == dwProcessId;
+EnumWindows(EnumWindowsProc, reinterpret_cast<LPARAM>(&dwProcessId));
+return g_dwDebuggerProcessId == dwProcessId;
 }
 
 bool SuspendDebuggerThread()
 {
-    THREADENTRY32 ThreadEntry = { 0 };
-    ThreadEntry.dwSize = sizeof(THREADENTRY32);
+THREADENTRY32 ThreadEntry = { 0 };
+ThreadEntry.dwSize = sizeof(THREADENTRY32);
 
     DWORD dwParentProcessId = process_helper::GetParentProcessId(GetCurrentProcessId());
     if (-1 == dwParentProcessId)
@@ -365,15 +366,15 @@ Further, the mouse and keyboard events from the debugged process desktop will no
 
 BOOL Switch()
 {
-    HDESK hNewDesktop = CreateDesktopA(
-        m_pcszNewDesktopName, 
-        NULL, 
-        NULL, 
-        0, 
-        DESKTOP_CREATEWINDOW | DESKTOP_WRITEOBJECTS | DESKTOP_SWITCHDESKTOP, 
-        NULL);
-    if (!hNewDesktop)
-        return FALSE;
+HDESK hNewDesktop = CreateDesktopA(
+m_pcszNewDesktopName,
+NULL,
+NULL,
+0,
+DESKTOP_CREATEWINDOW | DESKTOP_WRITEOBJECTS | DESKTOP_SWITCHDESKTOP,
+NULL);
+if (!hNewDesktop)
+return FALSE;
 
     return SwitchDesktop(hNewDesktop);
 }
@@ -397,8 +398,8 @@ The idea is simple. If a debugger is not present and <tt>kernel32!OutputDebugStr
 
 bool IsDebugged()
 {
-    if (IsWindowsVistaOrGreater())
-        return false;
+if (IsWindowsVistaOrGreater())
+return false;
 
     DWORD dwLastError = GetLastError();
     OutputDebugString(L"AntiDebug_OutputDebugString_v1");
@@ -416,8 +417,8 @@ bool IsDebugged()
 
 bool IsDebugged()
 {
-    if (IsWindowsVistaOrGreater())
-        return false;
+if (IsWindowsVistaOrGreater())
+return false;
 
     DWORD dwErrVal = 0x666; 
     SetLastError(dwErrVal);
@@ -430,6 +431,18 @@ bool IsDebugged()
 <hr class="space">
 
 <br />
+
+<h3><a class="a-dummy" name="processsuspensiondetection">8. Process Suspension Detection</a></h3>
+
+This evasion depends on having the thread creation flag  <tt>THREAD_CREATE_FLAGS_BYPASS_PROCESS_FREEZE</tt> that Microsoft added into 19H1. This flag makes the thread ignore any <tt>PsSuspendProcess</tt> API being called.
+
+Then an attcker can create two threads with this flag, one of which keeps suspending the other one until the suspend counter limit which is 127 is reached (suspend count is a signed 8-bit value).
+
+When you get to the limit, every call for <tt>PsSuspendProcess</tt>  doesn’t increment the suspend counter and returns <tt>STATUS_SUSPEND_COUNT_EXCEEDED</tt>. But what happens if someone calls <tt>NtResumeProcess</tt>? It decrements the suspend count! So when someone decides to suspend and resume the thread, they’ll leave the count in a state it wasn’t previously in.
+
+<br />
+
+
 <h3><a class="a-dummy" name="mitigations">Mitigations</a></h3>
 During debugging, it is better to skip suspicious function calls (e.g. fill them with <tt>NOP</tt>s).
 
@@ -447,3 +460,4 @@ If you write an anti-anti-debug solution, all the following functions can be hoo
 * <tt>kernel32!OutputDebugStringW</tt>
 
 Hooked functions can check input arguments and modify the original function behavior.
+To circumvent the Process Suspension detection evasion, you can hook <tt>NtCreateThread</tt> to omit the <tt>THREAD_CREATE_FLAGS_BYPASS_PROCESS_FREEZEIt</tt> flag. 
