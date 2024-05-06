@@ -14,6 +14,9 @@ tags: os-features
 <br />
   [2. Using unbalanced stack](#using-unbalanced-stack)
 <br />
+  [3. Detect Wine](#detect-wine)
+<br />
+
   [Countermeasures](#countermeasures)
 <br />
   [Credits](#credits)
@@ -94,6 +97,7 @@ BOOL CanOpenCsrss()
 <i>Credits for this code sample: <a href="https://github.com/LordNoteworthy/al-khaser">al-khaser project</a></i>
 
 <hr class="space">
+
 
 <b>Signature recommendations</b>
 <p></p>
@@ -205,11 +209,67 @@ bool Cuckoo::CheckUnbalancedStack() const {
 Signature recommendations are not provided as it's pretty tricky to track such a behavior on malware side.
 
 <br />
+
+<h3><a class="a-dummy" name="detect-wine">3. Detect Wine</a></h3>
+
+<hr class="space">
+
+The <tt>MulDiv</tt> [API](https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-muldiv) is being called with specific arguments (<tt>`MulDiv(1, 0x80000000, 0x80000000)`</tt>) which should logically return 1 - however, due to a bug with the ancient implementation on Windows, it returns 2.
+
+There are more known evasion methods to detect Wine like the good old check of searching for the existence of one of Wine’s exclusive APIs such as <tt>`kernel32.dll!wine_get_unix_file_name`</tt> or <tt>`ntdll.dll!wine_get_host_version`</tt>).
+
+<b>Code sample</b>
+<p></p>
+
+<hr class="space">
+
+{% highlight c %}
+
+int Check_MulDiv_1() {
+    // Call MulDiv with specific arguments
+    int result = MulDiv(1, 0x80000000, 0x80000000);
+
+    // Check if the result matches the expected value
+    if (result != 2) {
+        std::cout << "MulDiv evasion method detected: Wine environment." << std::endl;
+    } else {
+        std::cout << "MulDiv evasion method not detected." << std::endl;
+    }
+	
+	return 0;
+}
+
+int Check_MulDiv_2() {
+    // Check for the existence of Wine's exclusive APIs
+    HMODULE hKernel32 = GetModuleHandle("kernel32.dll");
+    FARPROC wineGetUnixFileName = GetProcAddress(hKernel32, "wine_get_unix_file_name");
+    HMODULE hNtdll = GetModuleHandle("ntdll.dll");
+    FARPROC wineGetHostVersion = GetProcAddress(hNtdll, "wine_get_host_version");
+
+    if (wineGetUnixFileName || wineGetHostVersion) {
+        std::cout << "Wine's exclusive APIs detected: Wine environment." << std::endl;
+    } else {
+        std::cout << "Wine's exclusive APIs not detected." << std::endl;
+    }
+
+    return 0;
+}
+
+{% endhighlight %}
+
+<hr class="space">
+
+<b>Signature recommendations</b>
+<p></p>
+Check if <tt>`MulDiv(1, 0x80000000, 0x80000000)`</tt> is being called
+
+<br />
 <h3><a class="a-dummy" name="countermeasures">Countermeasures</a></h3>
 
 <ul>
 <li><tt>versus checking debug privileges:</tt> hook <tt>OpenProcess</tt> and track for critical system processes PIDs — then return an error.</li> 
 <li><tt>versus using unbalanced stack:</tt> 1) stack adjusting before function call; 2) kernel-mode hooking.</li> 
+<li><tt>versus Detect Wine:</tt> If Using Wine, hook MulDiv to return 2 or modify the implementation as it works in Windows. </li> 
 </ul>
 
 <br />
