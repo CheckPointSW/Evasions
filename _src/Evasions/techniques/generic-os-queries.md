@@ -437,6 +437,11 @@ int gensandbox_one_cpu_GetSystemInfo() {
 
 {% endhighlight %}
 
+
+<i>Credits for this code sample: <a href="https://github.com/a0rtega/pafish">pafish project</a> </i>
+
+<hr class="space">
+
 <b>Code sample (variant 4)</b>
 <p></p>
 
@@ -452,12 +457,6 @@ __declspec(naked)
 }
 
 {% endhighlight %}
-
-<hr class="space">
-
-
-
-<i>Credits for this code sample: <a href="https://github.com/a0rtega/pafish">pafish project</a> </i>
 
 <hr class="space">
 

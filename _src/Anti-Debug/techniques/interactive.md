@@ -438,7 +438,7 @@ bool IsDebugged()
 
 <h3><a class="a-dummy" name="processsuspensiondetection">8. Process Suspension Detection</a></h3>
 
-This evasion depends on having the thread creation flag  <tt>THREAD_CREATE_FLAGS_BYPASS_PROCESS_FREEZE</tt> that Microsoft added into 19H1. This flag makes the thread ignore any <tt>PsSuspendProcess</tt> API being called.
+This evasion depends on having the thread creation flag  <tt>THREAD_CREATE_FLAGS_BYPASS_PROCESS_FREEZE</tt> that Microsoft added into Windows 10, version 1903 (19H1). This flag makes the thread ignore any <tt>PsSuspendProcess</tt> API being called.
 
 Then an attacker can create two threads with this flag, one of which keeps suspending the other one until the suspend counter limit which is 127 is reached (suspend count is a signed 8-bit value).
 
@@ -516,4 +516,4 @@ If you write an anti-anti-debug solution, all the following functions can be hoo
 * <tt>kernel32!OutputDebugStringW</tt>
 
 Hooked functions can check input arguments and modify the original function behavior.
-To circumvent the Process Suspension detection evasion, you can hook <tt>NtCreateThread</tt> to omit the <tt>THREAD_CREATE_FLAGS_BYPASS_PROCESS_FREEZEIt</tt> flag.
+To circumvent the Process Suspension detection evasion, you can hook <tt>NtCreateThread</tt> to omit the <tt>THREAD_CREATE_FLAGS_BYPASS_PROCESS_FREEZE</tt> flag.
