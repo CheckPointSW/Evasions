@@ -16,7 +16,6 @@ tags: os-features
 <br />
   [3. Detect Wine](#detect-wine)
 <br />
-
   [Countermeasures](#countermeasures)
 <br />
   [Credits](#credits)
@@ -217,7 +216,7 @@ Signature recommendations are not provided as it's pretty tricky to track such a
 The <tt>MulDiv</tt> [API](https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-muldiv) is being called with specific arguments (<tt>`MulDiv(1, 0x80000000, 0x80000000)`</tt>) which should logically return 1 - however, due to a bug with the ancient implementation on Windows, it returns 2.
 
 There are more known evasion methods to detect Wine like the good old check of searching for the existence of one of Wine’s exclusive APIs such as <tt>`kernel32.dll!wine_get_unix_file_name`</tt> or <tt>`ntdll.dll!wine_get_host_version`</tt>) as also mentioned in <a href="https://evasions.checkpoint.com/src/Evasions/techniques/processes.html#check-if-specific-functions-are-present-in-specific-libraries
-">Processes evasion techniques</a> </i>.
+">Processes evasion techniques</a>.
 
 <b>Code sample</b>
 <p></p>
@@ -237,7 +236,7 @@ int Check_MulDiv_1() {
         std::cout << "MulDiv evasion method not detected." << std::endl;
     }
 	
-	return 0;
+    return 0;
 }
 
 int Check_MulDiv_2() {

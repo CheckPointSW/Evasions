@@ -16,7 +16,6 @@ tags: registry
 <br />
   [3. Check if VBAWarnings enabled](#check-if-vbawarning-enabled)
 <br />
-
 [Countermeasures](#countermeasures)
 <br />
 [Credits](#credits)

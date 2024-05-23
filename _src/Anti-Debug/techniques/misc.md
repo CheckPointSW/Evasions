@@ -495,7 +495,7 @@ This technique involves modifying the Image File Execution Options (IFEO) regist
 When an executable file is launched, the operating system checks the corresponding IFEO registry key for any specified debugging options. If the key exists, the operating system launches the specified debugger instead of the executable file.
 Removing these entries further complicates analysis efforts by eliminating one potential avenue for researchers to attach debuggers to the malware process.
 
-<table style="width:62%">
+<table style="width:100%">
   <tr>
   	<td colspan="2">Check if the following process names are being removed (also check if the current process name is being removed)</td>
   </tr>
