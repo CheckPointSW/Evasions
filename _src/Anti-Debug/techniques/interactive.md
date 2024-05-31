@@ -17,6 +17,7 @@ tags: interactive
 * [5. EnumWindows() and SuspendThread()](#suspendthread)
 * [6. SwitchDesktop()](#switchdesktop)
 * [7. OutputDebugString()](#outputdebugstring)
+* [8. Process Suspension Detection](#processsuspensiondetection)
 * [Mitigations](#mitigations)
 <br />
 
@@ -47,7 +48,7 @@ In the example below, we run the second instance of our process which tries to a
 #define EVENT_SELFDBG_EVENT_NAME L"SelfDebugging"
 
 bool IsDebugged()
-{
+{ 
     WCHAR wszFilePath[MAX_PATH], wszCmdLine[MAX_PATH];
     STARTUPINFO si = { sizeof(si) };
     PROCESS_INFORMATION pi;
@@ -430,6 +431,74 @@ bool IsDebugged()
 <hr class="space">
 
 <br />
+
+<hr class="space">
+
+<br />
+
+<h3><a class="a-dummy" name="processsuspensiondetection">8. Process Suspension Detection</a></h3>
+
+This evasion depends on having the thread creation flag  <tt>THREAD_CREATE_FLAGS_BYPASS_PROCESS_FREEZE</tt> that Microsoft added into Windows 10, version 1903 (19H1). This flag makes the thread ignore any <tt>PsSuspendProcess</tt> API being called.
+
+Then an attacker can create two threads with this flag, one of which keeps suspending the other one until the suspend counter limit which is 127 is reached (suspend count is a signed 8-bit value).
+
+When you get to the limit, every call for <tt>PsSuspendProcess</tt> doesn’t increment the suspend counter and returns <tt>STATUS_SUSPEND_COUNT_EXCEEDED</tt>. But what happens if someone calls <tt>NtResumeProcess</tt>? It decrements the suspend count! 
+So when someone decides to suspend and resume the thread, they’ll leave the count in a state it wasn’t previously in.
+
+<b>C/C++ Code</b>
+<p></p>
+
+{% highlight c %}
+
+// Maximum suspend count before STATUS_SUSPEND_COUNT_EXCEEDED error is returned
+#define MAX_SUSPEND_COUNT 127
+
+// Function to spawn the thread that suspends the other thread
+DWORD WINAPI SuspendThreadFunction(LPVOID lpParam) {
+    HANDLE hThread = (HANDLE)lpParam;
+    while (true) {
+        // Suspend the other thread
+        SuspendThread(hThread);
+        // Sleep for some time before resuming the other thread
+        Sleep(1000);
+    }
+    return 0;
+}
+
+int main() {
+    // Create two threads
+    HANDLE hThread1 = NULL, hThread2 = NULL;
+    hThread1 = CreateThread(NULL, 0, SuspendThreadFunction, &hThread2, THREAD_CREATE_FLAGS_BYPASS_PROCESS_SUSPEND, NULL);
+    hThread2 = CreateThread(NULL, 0, SuspendThreadFunction, &hThread1, THREAD_CREATE_FLAGS_BYPASS_PROCESS_SUSPEND, NULL);
+
+    // Loop to periodically suspend the second thread and check if it's externally suspended
+    while (true) {
+        // Suspend the second thread
+        SuspendThread(hThread2);
+        // Check if the last error is STATUS_SUSPEND_COUNT_EXCEEDED
+        DWORD lastError = GetLastError();
+        if (lastError != STATUS_SUSPEND_COUNT_EXCEEDED) {
+            printf("Thread is externally suspended!\n");
+            // Terminate the process
+            TerminateProcess(GetCurrentProcess(), 0);
+        }
+        // Sleep for some time before the next check
+        Sleep(2000);
+    }
+
+    // Close thread handles
+    CloseHandle(hThread1);
+    CloseHandle(hThread2);
+
+    return 0;
+}
+
+
+{% endhighlight %}
+
+
+<br />
+
 <h3><a class="a-dummy" name="mitigations">Mitigations</a></h3>
 During debugging, it is better to skip suspicious function calls (e.g. fill them with <tt>NOP</tt>s).
 
@@ -447,3 +516,4 @@ If you write an anti-anti-debug solution, all the following functions can be hoo
 * <tt>kernel32!OutputDebugStringW</tt>
 
 Hooked functions can check input arguments and modify the original function behavior.
+To circumvent the Process Suspension detection evasion, you can hook <tt>NtCreateThread</tt> to omit the <tt>THREAD_CREATE_FLAGS_BYPASS_PROCESS_FREEZE</tt> flag.

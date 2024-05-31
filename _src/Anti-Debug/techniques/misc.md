@@ -19,6 +19,7 @@ tags: misc
 * [5. DbgSetDebugFilterState()](#dbgsetdebugfilterstate)
 * [6. NtYieldExecution() / SwitchToThread()](#switchtothread)
 * [7. VirtualAlloc() / GetWriteWatch()](#getwritewatch)
+* [8. IFEO removal](#ifeo-removal)
 * [Mitigations](#mitigations)
 <br />
 
@@ -485,6 +486,66 @@ bool Generic::CheckWrittenPages2() const {
 {% endhighlight %}
 
 <hr class="space">
+
+<br />
+
+<h3><a class="a-dummy" name="ifeo-removal">8. IFEO removal</a></h3>
+
+This technique involves modifying the Image File Execution Options (IFEO) registry key, which is used by the Windows operating system to set debugging options for executable files.
+When an executable file is launched, the operating system checks the corresponding IFEO registry key for any specified debugging options. If the key exists, the operating system launches the specified debugger instead of the executable file.
+Removing these entries further complicates analysis efforts by eliminating one potential avenue for researchers to attach debuggers to the malware process.
+
+<table style="width:100%">
+  <tr>
+  	<td colspan="2">Check if the following process names are being removed (also check if the current process name is being removed)</td>
+  </tr>
+  <tr>
+  	<th style="text-align:center">Path</th>
+  	<th style="text-align:center">value</th>
+  </tr>
+  <tr>
+  	<th rowspan="6">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options</th>
+  	<td>rundll32.exe</td>
+  </tr>
+  <tr>
+  	<td>regsvr32.exe</td>
+  </tr>
+   <tr>
+  	<td>dllhost.exe</td>
+  </tr>
+  <tr>
+  	<td>msiexec.exe</td>
+  </tr>
+  <tr>
+  	<td>explorer.exe</td>
+  </tr>
+  <tr>
+  	<td>odbcconf.exe</td>
+  </tr>
+</table>
+
+<b>C/C++ Code</b>
+<p></p>
+
+{% highlight c %}
+
+int main() {
+    // Define the registry key path for explorer.exe under IFEO
+    LPCWSTR keyPath = L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\explorer.exe";
+
+    // Attempt to open the registry key
+    LONG result = RegDeleteKey(HKEY_LOCAL_MACHINE, keyPath);
+
+    if (result == ERROR_SUCCESS) {
+        std::cout << "IFEO entry for explorer.exe successfully deleted." << std::endl;
+    } else {
+        std::cerr << "Failed to delete IFEO entry for explorer.exe. Error code: " << result << std::endl;
+    }
+
+    return 0;
+}
+
+{% endhighlight %}
 
 <br />
 <h3><a class="a-dummy" name="mitigations">Mitigations</a></h3>

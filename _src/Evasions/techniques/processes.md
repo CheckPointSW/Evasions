@@ -338,13 +338,16 @@ then it's an indication of application trying to use this evasion technique.
     <th style="text-align:center">Function</th>
   </tr>
   <tr>
-    <th rowspan="2">Wine</th>
+    <th rowspan="3">Wine</th>
     <td>kernel32.dll</td>
     <td>wine_get_unix_file_name</td>
   </tr>
   <tr>
-    <td>ntdll.dll</td>
+    <td rowspan="2">ntdll.dll</td>
     <td>wine_get_version</td>
+  </tr>
+  <tr>
+    <td>wine_get_host_version</td>
   </tr>
 </table>
 

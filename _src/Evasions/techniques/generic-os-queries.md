@@ -370,6 +370,7 @@ Function used:
 </ul>
 
 Besides this function numbers of processors can be obtained from PEB, via either asm inline or intrinsic function, see code samples below.
+It can be also obtained (ActiveProcessorCount flag) from the KUSER_SHARED_DATA structure.
 
 <hr class="space">
 
@@ -436,7 +437,26 @@ int gensandbox_one_cpu_GetSystemInfo() {
 
 {% endhighlight %}
 
+
 <i>Credits for this code sample: <a href="https://github.com/a0rtega/pafish">pafish project</a> </i>
+
+<hr class="space">
+
+<b>Code sample (variant 4)</b>
+<p></p>
+
+{% highlight c %}
+
+__declspec(naked)
+    DWORD get_number_of_active_processors() {
+    __asm {
+        mov eax, 0x7ffe0000  ; KUSER_SHARED_DATA structure fixed address
+        mov eax, byte ptr [eax+0x3c0] ; checking ActiveProcessorCount
+        retn  ; return from function
+    }
+}
+
+{% endhighlight %}
 
 <hr class="space">
 

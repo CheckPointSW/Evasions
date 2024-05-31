@@ -14,6 +14,8 @@ tags: registry
 <br />
   [2. Check if particular registry keys contain specified strings](#check-if-keys-contain-strings)
 <br />
+  [3. Check if VBAWarnings enabled](#check-if-vbawarning-enabled)
+<br />
 [Countermeasures](#countermeasures)
 <br />
 [Credits](#credits)
@@ -735,6 +737,58 @@ then it's an indication of application trying to use the evasion technique.
   </tr>
 </table>
 
+<hr class="space">
+
+<br />
+<h3><a class="a-dummy" name="check-if-vbawarning-enabled">3. Check if VBAWarnings enabled</a></h3>
+
+“Enable all macros” prompt in Office documents means the macros can be executed without any user interaction. This behavior is common for sandboxes.
+A malware can use that in order to check if it is running on a sandbox checking the flag in the registry keys  <tt>SOFTWARE\Microsoft\Office\<version>\Word\Security\VBAWarnings</tt> while the version is between 12.0 to 19.0.
+
+
+<hr class="space">
+
+<b>Code sample</b>
+<p></p>
+
+{% highlight c %}
+
+// Function to check if VBScript warnings are enabled in Office
+bool IsVBScriptWarningEnabled() {
+    HKEY hKey;
+    LPCWSTR keyPath = L"SOFTWARE\\Microsoft\\Office\\<Office_Version>\\Common\\Security";
+    LPCWSTR valueName = L"VBAScriptWarnings";
+
+    // Open the registry key
+    LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, keyPath, 0, KEY_READ, &hKey);
+    if (result == ERROR_SUCCESS) {
+        DWORD dwType;
+        DWORD dwValue;
+        DWORD dwSize = sizeof(DWORD);
+
+        // Query the value of VBAScriptWarnings
+        result = RegQueryValueEx(hKey, valueName, NULL, &dwType, reinterpret_cast<LPBYTE>(&dwValue), &dwSize);
+        if (result == ERROR_SUCCESS && dwType == REG_DWORD && dwValue == 1) {
+            // VBScript warnings are enabled
+            RegCloseKey(hKey);
+            return true;
+        }
+        RegCloseKey(hKey);
+    }
+    return false;
+}
+
+int main() {
+    if (IsVBScriptWarningEnabled()) {
+        std::cout << "VBScript warnings are enabled in Office." << std::endl;
+    } else {
+        std::cout << "VBScript warnings are not enabled in Office." << std::endl;
+    }
+
+    return 0;
+}
+
+{% endhighlight %}
 
 <br />
 <h3><a class="a-dummy" name="countermeasures">Countermeasures</a></h3>
