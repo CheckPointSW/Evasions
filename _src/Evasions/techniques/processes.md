@@ -129,7 +129,7 @@ bool check_process_is_running(const std::string &proc_name) {
     <td>vmusrvc.exe</td>
   </tr>
   <tr>
-    <th rowspan="6">VMware</th>
+    <th rowspan="7">VMware</th>
     <td>vmtoolsd.exe</td>
   </tr>
   <tr>
@@ -148,6 +148,9 @@ bool check_process_is_running(const std::string &proc_name) {
     <td>vmount2.exe</td>
   </tr>
   <tr>
+    <td>vmwareservice.exe</td>
+  </tr>
+  <tr>
     <th rowspan="2">Xen</th>
     <td>xenservice.exe</td>
   </tr>
@@ -155,13 +158,25 @@ bool check_process_is_running(const std::string &proc_name) {
     <td>xsvc_depriv.exe</td>
   </tr>
   <tr>
+    <th>QEMU</th>
+    <td>qemu-ga.exe</td>
+  </tr>
+  <tr>
     <th>WPE Pro</th>
     <td>WPE Pro.exe</td>
+  </tr>
+  <tr>
+    <th>KsDumper</th>
+    <td>ksdumperclient.exe</td>
   </tr>
 </table>
 
 <br />
-<i>Note: WPE Pro is a sniffer, not VM, however it is used along with VM detects.</i>
+<i>Notes:</i> 
+<ul>
+  <li><tt><i>WPE Pro is a sniffer, not a VM or a sandbox, however it is used along with VM detects.</i></tt></li>
+  <li><tt><i>KsDumper is a kernel-mode process dumper, not a VM or a sandbox, however it is used along with VM detects in Styx Stealer.</i></tt></li>
+</ul>
 
 <br />
 <h4><a class="a-dummy" name="check-if-specific-libraries-are-loaded">1.2. Check if specific libraries are loaded in the process address space</a></h4>
